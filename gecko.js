@@ -1,3 +1,5 @@
+/*----------------------STRINGS-------------------*/
+
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
     var count = 0;
@@ -40,12 +42,13 @@ String.prototype.getSearchPosition = function(str, index){
     }
 }
 
-//Trim substring of a string
+
+
+  
+//From RGB string to HEX code
 function trim (str) {
     return str.replace(/^\s+|\s+$/gm,'');
 }
-  
-//From RGB string to HEX code
 String.prototype.toHex = function() {
       var parts = this.substring(this.indexOf("(")).split(","),
           r = parseInt(trim(parts[0].substring(1)), 10),
@@ -90,13 +93,13 @@ String.prototype.cut = function(cutStart, cutEnd){
 }
 
 //Search and replace a character in a specific index of a string
-function replaceIndex(string, search, SearchIndex, replace){
+String.prototype.replaceIndex = function(search, SearchIndex, replace){
     var count = 0;
-    for(var i = 0;i < string.length;i++){
-        if(string.charAt(i) == search){
+    for(var i = 0;i < this.length;i++){
+        if(this.charAt(i) == search){
             count++;
             if(count == SearchIndex){
-                var resp = string.replaceAt(i, replace);
+                var resp = this.replaceAt(i, replace);
                 return resp;
             }
         }
@@ -104,10 +107,10 @@ function replaceIndex(string, search, SearchIndex, replace){
 }
 
 //String includes an Array?
-function includeArray(str, array){
+String.prototype.includeArray = function(array){
     var respTS = false;
     for(var e = 0; e < array.length;e++){
-        var arrC = str.toLowerCase();
+        var arrC = this.toLowerCase();
         if(arrC.includes(array[e]) == true){
             respTS = true;
             break;
