@@ -45,6 +45,20 @@ main{
     top:0;
     width:100%;
     margin:0 auto;
+    #download{
+        margin:0;
+        font-size:1.3em;
+        padding:0px!important;
+        padding-bottom:30px;
+        line-height:70px;
+        height:70px;
+        margin-bottom:30px;
+        width:100%;
+        i{
+            position: relative;
+            top:3px;
+        }
+    }
     .note{
         display:block;
         position: relative;
@@ -124,8 +138,8 @@ main{
        box-shadow:none!important;
         font-size:1em;
     }
-}
 
+}
 
 
 @media screen and (min-width: 345px){
@@ -180,7 +194,13 @@ main{
             left:unset;
         }
     }
- 
+ main #download{
+     position: absolute;
+     left:18px;
+     bottom:-16%;
+     width:auto;
+     padding:0 30px!important;
+ }
 }
 
 @media screen and (min-width: 990px){
@@ -200,6 +220,14 @@ main{
      }
      #code input{
         width:150px;
+    }
+    main #download{
+        position: absolute;
+        left:0%;
+        margin-left:44px;
+        bottom:-13%;
+        width:auto;
+        padding:0 30px!important;
     }
 
  }
