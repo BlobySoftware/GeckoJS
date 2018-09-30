@@ -15,7 +15,7 @@ npm i geckojs
   <dt><h2>Features:</h2></dt>
   <dd>* All data convertions (String, Array, Number, Object)</dd>
   <dd>* Most fasted selectors for the elements like querySelectors()</dd>
-  <dd>* Easily structure (not write more do less lol)</dd>
+  <dd>* Easy structure (not write more do less lol)</dd>
 </dl>
 
 -------------
@@ -53,4 +53,53 @@ g(".class").event("yourEvent", () =>{
   //Do something ...
   
 }, limiter);
+```
+
+<div align="left"><h3>Convertions:</h3></div><
+<div align="left"><h4>Numbers:</h4></div>
+
+String:
+
+```javascript
+var n = 3;
+n.toString(); // "3"
+```
+
+Array:
+
+```javascript
+var n = 3343;
+n.toArray(); // [3, 3, 4, 3]
+```
+
+<div align="left"><h4>Arrays:</h4></div>
+
+String:
+
+```javascript
+var arry = ["g", "e", "c", "k", "o", 1, "." , 0];
+arry.toString(); // "gecko1.0"
+```
+
+Number:
+
+```javascript
+var arry = ["29", 2, 5, "1"];
+arry.toInt(); // 29251
+```
+
+<div align="left"><h4>Strings:</h4></div>
+
+Number:
+
+```javascript
+var str = "153";
+arry.toInt(); // 153
+```
+
+Array:
+
+```javascript
+var str = "gJs1";
+arry.toArray(); // ["g", "J", "s", 1]
 ```
