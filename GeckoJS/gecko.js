@@ -12,7 +12,6 @@ function g(str, e){
     }else{
         return el[0];
     }
-
 }
 Object.prototype.event = function(event, fn, limiter){
     if(this.length > 1){
@@ -34,6 +33,48 @@ Object.prototype.event = function(event, fn, limiter){
     }
    return;
 }
+Object.prototype.css = function(str){
+    if(str == undefined){
+        return window.getComputedStyle(this);
+    }else if(str == "get"){
+        return window.getComputedStyle(this).getPropertyValue(str);
+    }else{
+        this.style.cssText = str;
+    }
+}
+
+Object.prototype.attr = function(str,value, method){
+    var v = value,m = method;
+    if(str == undefined || str == ""){
+        throw new Error("GeckoJS: No attribute");
+    }else{
+        if(v == undefined || str == ""){
+            return this.getAttribute(str);
+        }else{
+            if(v == "set"){
+                if(m == undefined || m == ""){
+                    throw new Error("GeckoJS: No attribute value");
+                }else{
+                    this.setAttribute(str, method);
+                }
+            }else if(v == "get"){
+                return this.getAttribute(str);   
+            }else if(v == "remove"){
+                this.removeAttribute(str);
+            }else if(v == "has"){
+                return this.hasAttribute(str)
+            }else{
+                this.setAttribute(str, v);
+            }
+        }
+    }
+}
+
+console.log(g("#banner").attr("id"));
+
+/*------------------------------------------------*/
+/*----------------------DOM-------------------*/
+
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
 function trim (str) {
@@ -42,9 +83,9 @@ function trim (str) {
 
 //Returns random number
 function randomRange(min, max){
-    var rd = (Math.floor(Math.random() * (max - min + 1)) + min);
-    return rd;
+    return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
+
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
@@ -217,7 +258,7 @@ Array.prototype.toString = function(){
 Array.prototype.randomize = function(){
    for(var i = 0; i < this.length ; i++){
        var current = this[i];
-       var rd = randomRange(0, this.length-1);
+       var rd = (Math.floor(Math.random() * (this.length)));
        var prev = this[rd];
         this[i] = prev;
         this[rd] = current;
