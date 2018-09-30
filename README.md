@@ -56,6 +56,7 @@ g(".class").event("yourEvent", () =>{
 ```
 
 <div align="left"><h3>Convertions:</h3></div>
+-----------
 <div align="left"><h4>Numbers:</h4></div>
 
 String:
@@ -71,9 +72,9 @@ Array:
 var n = 3343;
 n.toArray(); // [3, 3, 4, 3]
 ```
-
+--------------
 <div align="left"><h4>Arrays:</h4></div>
-
+--------------
 String:
 
 ```javascript
@@ -87,9 +88,9 @@ Number:
 var arry = ["29", 2, 5, "1"];
 arry.toInt(); // 29251
 ```
-
+---------------
 <div align="left"><h4>Strings:</h4></div>
-
+---------------
 Number:
 
 ```javascript
@@ -103,3 +104,4 @@ Array:
 var str = "gJs1";
 arry.toArray(); // ["g", "J", "s", 1]
 ```
+----------------
