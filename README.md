@@ -19,7 +19,7 @@ npm i geckojs
 </dl>
 
 -------------
-<div align="center"><h1>Documentation</h1></div>
+<div align="center"><h1>Documentation (Summary of Updates)</h1></div>
 <div align="left"><h3>Selectors:</h3></div>
 
 Base form:
