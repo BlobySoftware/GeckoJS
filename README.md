@@ -4,12 +4,12 @@
 
 ## We have 1ms per loop vs 5ms per loop for jQuery
 ### Features:
-  #### \t* All data convertions (String, Array, Number, Object)
-  #### \t* Most fasted selectors for the elements like querySelectors()
-  #### \t* Easily structure (not write more do less lol)
+  ####      1. All data convertions (String, Array, Number, Object)
+  ####      2. Most fasted selectors for the elements like querySelectors()
+  ####      3. Easily structure (not write more do less lol)
 
 
-# Documentation
-<h2>Selectors:<h2>
+<div align="center"><h1>Documentation</h1></div>
+<div align="left"><h3>Selectors:</h3></div>
 
 
