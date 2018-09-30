@@ -55,7 +55,7 @@ g(".class").event("yourEvent", () =>{
 }, limiter);
 ```
 
-<div align="left"><h3>Convertions:</h3></div><
+<div align="left"><h3>Convertions:</h3></div>
 <div align="left"><h4>Numbers:</h4></div>
 
 String:
