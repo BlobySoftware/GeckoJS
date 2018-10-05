@@ -178,11 +178,6 @@ Object.prototype.attr = function(str,value){
         }
     }
 }
-g(".pao").event("click", (e)=>{
-    e.preventDefault();
-    var thisG = e.target;
-})
-
 /*------------------------------------------------*/
 /*----------------------DOM-------------------*/
 
