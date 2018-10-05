@@ -1,76 +1,187 @@
 'use strict'
 /*------------------------------------------------*/
 /*----------------------Selectors-------------------*/
-function g(str, e){
+console.time("Time to load:");
+console.warn(document.head.childNodes[1].textContent , "is Powered by 🌐GeckoJS© 😉\nVisit: https:www.alexsan134.github.io/GeckoJS 🌐 ");
+console.info("Try our original Limiters and Ranges (LnR)®❗️");
+function g(str, arry){
     var el = document.querySelectorAll(str);
+    var a = [];
     if(el.length > 1){
-        if(e == undefined){
-            return el;
+        if(arry == undefined){
+            return document.querySelectorAll(str);
         }else{
-            return el[e];
-        }    
-    }else{
-        return el[0];
-    }
-}
-Object.prototype.event = function(event, fn, limiter){
-    if(this.length > 1){
-        if(limiter == undefined){
-        for(var i = 0; i < this.length; i++){
-            this[i].addEventListener(event, fn);
-        }}else{
-            if(limiter > this.length){
-                limiter = this.length;
-            }else if(limiter < 0){
-                limiter = this.length + (limiter+1);
+    if(typeof(arry) == "object"){
+         if(arry.length == 1){
+            var l = arry[0];
+            if(l >= el.length){
+                l = el.length-1;
+            }if(l < 0){
+                l = el.length + l;
             }
-            for(var i = 0; i < limiter; i++){
-                this[i].addEventListener(event, fn);
+            for(var i = 0;i<l+1;i++){
+                a.push(el[i]);
             }
-        }
-    }else{
-        this.addEventListener(event, fn);
-    }
-   return;
-}
-Object.prototype.css = function(str){
-    if(str == undefined){
-        return window.getComputedStyle(this);
-    }else if(str == "get"){
-        return window.getComputedStyle(this).getPropertyValue(str);
-    }else{
-        this.style.cssText = str;
-    }
-}
-
-Object.prototype.attr = function(str,value, method){
-    var v = value,m = method;
-    if(str == undefined || str == ""){
-        throw new Error("GeckoJS: No attribute");
-    }else{
-        if(v == undefined || str == ""){
-            return this.getAttribute(str);
+            return a; 
         }else{
-            if(v == "set"){
-                if(m == undefined || m == ""){
-                    throw new Error("GeckoJS: No attribute value");
+            //DEF BOTH
+            var mx = arry[1]+1;
+            var mn = arry[0];
+            if(mx < mn){
+                if(mx > 0){
+                    mx = arry[0]+1;
+                    mn = arry[1];
                 }else{
-                    this.setAttribute(str, method);
+                    mn = arry[0];
+                    mx = el.length+arry[1]+1;
                 }
-            }else if(v == "get"){
-                return this.getAttribute(str);   
-            }else if(v == "remove"){
-                this.removeAttribute(str);
-            }else if(v == "has"){
-                return this.hasAttribute(str)
+            }else if(mx > mn){
+                if(mn < 0){
+                    mn = arry[1];
+                    mx = el.length+arry[0];
+                }
+            }
+            if(arry[0] == arry[1]){
+                return el[mx-1];
+            }
+            for(mn;mn < mx;mn++){
+                a.push(el[mn]);
+            }
+            return a;
+        }
+    }else if(typeof(arry) == "number"){
+        if(arry >= el.length){
+            arry = el.length-1;
+        }
+        if(arry < 0){
+            if(Math.abs(arry) > el.length-1){
+                arry = 0;
             }else{
-                this.setAttribute(str, v);
+                arry = el.length + arry;
+            }
+            
+        }
+        return el[arry];
+    }else{
+        throw new Error("GeckoJS: selector is of type Number or Array");
+    }
+    }
+    }else{
+        return document.querySelectorAll(str)[0];
+    }
+}
+Object.prototype.event = function(event, fn){
+    if(event == undefined || event == ""){
+        throw new Error("GeckoJS: No event");
+    }else{
+        if(fn == undefined || fn == ""){
+            throw new Error("GeckoJS: No Callback");
+        }else{
+            if(this.length > 1){
+                for(var i = 0;i<this.length;i++){
+                    this[i].addEventListener(event, fn);
+                }
+            }else{
+                this.addEventListener(event, fn); 
             }
         }
     }
+
+}
+Object.prototype.css = function(str, value){
+    var arry = [];
+        if(str == undefined || str == ""){
+            if(this.length > 1){
+                for(var i = 0;i < this.length;i++){
+                    arry.push(window.getComputedStyle(this));
+                }
+                return arry;
+            }else{
+                return window.getComputedStyle(this);
+            }
+        }else{
+            if(str == "get"){
+                if(value == undefined || value == ""){
+                    throw new Error("GeckoJS: no property value");
+                }else{
+                    if(this.length > 1){
+                        for(var i = 0;i < this.length;i++){
+                            arry.push(window.getComputedStyle(this[i]).getPropertyValue(value));
+                        }
+                        return arry;
+                    }else{
+                        return window.getComputedStyle(this).getPropertyValue(value);
+                    }
+                } 
+            }else{
+                if(this.length > 1){
+                    for(var i = 0;i<this.length;i++){
+                        this[i].style.cssText=str;
+                    }
+                }else{
+                    this.style.cssText=str;
+                }
+            }
+        }
 }
 
-console.log(g("#banner").attr("id"));
+Object.prototype.attr = function(str,value){
+    var arry = [];
+    if(str == undefined || str == ""){
+        throw new Error("GeckoJS: no attribute");
+    }else{
+        if(value == undefined || value == ""){
+            if(this.length > 1){
+                for(var i = 0;i < this.length;i++){
+                    arry.push(this[i].getAttribute(str));
+                }
+                return arry;
+            }else{
+                return this.getAttribute(str);
+            }
+        }else{
+            if(str == "get"){
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        arry.push(this[i].getAttribute(value));
+                    }
+                    return arry;
+                }else{
+                    return this.getAttribute(value);
+                }
+        }else if(str == "has"){
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        arry.push(this[i].hasAttribute(value));
+                    }
+                    return arry;
+                }else{
+                    return this.hasAttribute(value);
+                }
+        }else if(str == "remove"){
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        arry.push(this[i].removeAttribute(value));
+                    }
+                }else{
+                    this.removeAttribute(value);
+                }    
+        }else{   
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        this[i].setAttribute(str, value);
+                    }
+                }else{
+                    this.setAttribute(str, value);
+                }
+        }
+        }
+    }
+}
+g(".pao").event("click", (e)=>{
+    e.preventDefault();
+    var thisG = e.target;
+})
 
 /*------------------------------------------------*/
 /*----------------------DOM-------------------*/
@@ -149,18 +260,17 @@ String.prototype.toHex = function() {
           r = parseInt(trim(parts[0].substring(1)), 10),
           g = parseInt(trim(parts[1]), 10),
           b = parseInt(trim(parts[2]), 10)
-          var hexs; 
-          hexs = ('#' + r.toString(16) + g.toString(16) + b.toString(16));
-          if( r == 0 && g == 0 && b == 0){
-            hexs = ('#000000');
-          }else if(r == 0){
-            hexs = ('#' + "00" + g.toString(16) + b.toString(16));
-          }else if(g == 0){
-            hexs = ('#' + r.toString(16) + "00" + b.toString(16));
-          }else if( b == 0){
-            hexs = ('#' + r.toString(16) + g.toString(16) + "00");
+          if(r == 0){
+              r = "00";
           }
-          return hexs;
+          if (g == 0){
+              g = "00";
+          }
+          if (b == 0){
+              b = "00";
+          }
+          var hex = "#"+r.toString(16)+g.toString(16)+b.toString(16);
+          return hex;
 }
 
 //From HEX string to RGB code
@@ -172,7 +282,7 @@ String.prototype.toRGB = function() {
             c= [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
         c= '0x'+c.join('');
-        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.6)';
+        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
     }
 }
 
@@ -306,3 +416,5 @@ Array.prototype.max = function(){
 Array.prototype.min = function(){
     return Math.min(...this.map(Number));
 }
+
+console.timeEnd("Time to load:");
