@@ -48,8 +48,9 @@ g("class", number).event("yourEvent", () =>{
 And you can select a range of a list with elements
 
 ```javascript
-//If you want to select a range: from first element to limiter element with '.class'
+//If you want to select a range: from first element to 7th element with '.class'
 
+var limiter = 7;
 g(".class", [limiter]).event("yourEvent", () =>{
   //Do something ...
   
@@ -61,13 +62,24 @@ it doesn't matter
 
 
 ```javascript
-//If you want to select a range: from min element to max element with '.class'
+//If you want to select a range: from 3th element to 8th element with '.class'
+
+var min = 3, max = 8;
 
 g(".class", [max, min]).event("yourEvent", () =>{
   //Do something ...
   
 });
+
+// OR
+
+g(".class", [min, max]).event("yourEvent", () =>{
+  //Do something ...
+  
+});
+
 ```
+
 <dl>
   <dt><h2>Feature:</h2></dt>
   <dd>* If you select negative coeficient (-1) is the inverted position of an element</dd>
