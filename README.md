@@ -93,7 +93,7 @@ Example:
 g(".class", [3, -2]).event("yourEvent", () =>{
   //Do something ...
   
-}); //Return from 3th element to 8th element
+}); //Return from 3th element to 9th element
 ```
 
 <div align="left"><h3>Convertions:</h3></div>
