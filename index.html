@@ -18,7 +18,7 @@
     <main>
          <div class="row">
             <div class="col s12"><h1>All the JS tools you need in your project</h1></div>
-            <div class="col s12"><p>JS Library, with the most usually tools in your project, like  <i>String</i> to <i>Int</i> convertions, array operations, async functions, promises, callbacks, ES6 implementation, <i>HTTP request</i>, <i>AJAX</i>, data convertions, data parsers, <i>JSON</i>, responsive design, dom manipulation, etc.</p></div>
+            <div class="col s12 sd"><p>JS Library, with the most usually tools in your project, like  <i>String</i> to <i>Int</i> convertions, array operations, async functions, promises, callbacks, ES6 implementation, <i>HTTP request</i>, <i>AJAX</i>, data convertions, data parsers, <i>JSON</i>, responsive design, dom manipulation, etc.</p></div>
         </div>
         <section id="code">
             <a href="#copy" class="btn blue waves-effect" id="copyBtn">Copy</a>
@@ -35,14 +35,35 @@
     </section>
     <section id="trump">
         <h3>Our octocat repository:</h3>
-        <img src="./img/Octocat.png" alt="">
+        <img src="/img/Octocat.png" alt="">
         <div id="shadow"></div>
         <h1>Make libraries fasted again.</h1>
     </section>
     <footer>
-        <strong>GeckoJS© all rights reserved <br> John Resig doesn't like this</strong>
+        <strong>GeckoJS© all rights reserved <br> John Resig dont like this</strong>
     </footer>
+    <ul>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+        <li class="pao">pa</li>
+    </ul>
 </body>
 <script src="./materialize/js/materialize.min.js"></script>
-<script src="main.js"></script>
+<script src="./GeckoJS/gecko.js"></script>
+<script>
+g("#copyBtn").event("click", () =>{
+    g("#npmCode").select();
+    document.execCommand("copy");
+})
+g("#trump").event("click", () =>{
+    window.open("https://github.com/alexsan134/GeckoJS");
+})
+</script>
 </html>
