@@ -56,7 +56,7 @@ g(".class", [limiter]).event("yourEvent", () =>{
 });
 ```
 
-Select range of elements in a list with [Max, Min] or [Min, Max] 
+Select a range of elements in a list with [Max, Min] or [Min, Max] 
 it doesn't matter
 
 
