@@ -4,7 +4,7 @@
 
 ## We have 1ms per loop vs 5ms per loop for jQuery
 
-<div align="center"><h1>Installation (Basic and Compressed) v1.0.4</h1></div>
+<div align="center"><h1>Installation (Basic and Compressed) v1.0.5</h1></div>
 
 
 ```
