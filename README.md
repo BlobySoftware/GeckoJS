@@ -4,7 +4,8 @@
 
 ## We have 1ms per loop vs 5ms per loop for jQuery
 
-<div align="center"><h1>Installation (Basic and Compressed)</h1></div>
+<div align="center"><h1>Installation (Basic and Compressed) v1.0.4</h1></div>
+
 
 ```
 npm i geckojs
@@ -23,6 +24,7 @@ npm i geckojs
 <div align="left"><h3>Selectors:</h3></div>
 
 Base form:
+You can select one element, or list of elements with class
 
 ```javascript
 g("yourElement").event("yourEvent", () =>{
@@ -46,13 +48,40 @@ g("class", number).event("yourEvent", () =>{
 And you can select a range of a list with elements
 
 ```javascript
-//If you want to select a range: from first element to 3th element with '.class'
+//If you want to select a range: from first element to limiter element with '.class'
 
-var limiter = 3;
-g(".class").event("yourEvent", () =>{
+g(".class", [limiter]).event("yourEvent", () =>{
   //Do something ...
   
-}, limiter);
+});
+```
+
+Select range of elements in a list with [Max, Min] or [Min, Max] 
+it doesn't matter
+
+
+```javascript
+//If you want to select a range: from min element to max element with '.class'
+
+g(".class", [max, min]).event("yourEvent", () =>{
+  //Do something ...
+  
+});
+```
+<dl>
+  <dt><h2>Feature:</h2></dt>
+  <dd>* If you select negative coeficient (-1) is the inverted position of an element</dd>
+</dl>
+
+Example:
+</br>
+10 elements with '.class' 
+
+```javascript
+g(".class", [3, -2]).event("yourEvent", () =>{
+  //Do something ...
+  
+}); //Return from 3th element to 8th element
 ```
 
 <div align="left"><h3>Convertions:</h3></div>
