@@ -173,3 +173,11 @@ You dont need to load all the stupid properties in one object, with GeckoJS you 
 
 
 
+```javascript
+g("#myEl").event("click", () =>{
+  g("#child").find("strong").css("background:red");
+});
+```
+
+
+
