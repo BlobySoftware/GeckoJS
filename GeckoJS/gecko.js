@@ -132,6 +132,7 @@ Object.prototype.css = function(str, value){
                 }
             }
         }
+return this;
 }
 
 Object.prototype.attr = function(str,value){
@@ -186,6 +187,7 @@ Object.prototype.attr = function(str,value){
         }
         }
     }
+return this;
 }
 
 Object.prototype.hover = function(over, out){
@@ -214,6 +216,7 @@ Object.prototype.animates = function(css, time){
     }else{
         this.style.cssText =csT;
     }
+return this;
 }
 Object.prototype.html = function(str){
     var arry = [];
@@ -235,6 +238,7 @@ Object.prototype.html = function(str){
             this.innerHTML = str;
         }
     }
+return this;
 }
 Object.prototype.text = function(str){
     var arry = [];
@@ -256,6 +260,7 @@ Object.prototype.text = function(str){
             this.textContent = str;
         }
     }
+return this;
 }
 Object.prototype.class = function(str, value, rep){
     var arry = [];
@@ -334,6 +339,7 @@ Object.prototype.class = function(str, value, rep){
             }
         }
     }
+return this;
 }
 
 Object.prototype.find = function(str){
