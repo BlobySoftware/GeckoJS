@@ -155,3 +155,21 @@ arry.toArray(); // ["g", "J", "s", 1]
 ```
 
 ----------------
+
+
+
+<div align="left"><h3>Methods:</h3></div>
+
+-----------
+
+You dont need to load all the stupid properties in one object, with GeckoJS you just load one method
+
+<dl>
+  <dt><h2>Ussually:</h2></dt>
+  <dd>* Css, Attr, Class, Events</dd>
+  <dd>* Find, HTML, Text</dd>
+  <dd>* Animates, Hover</dd>
+</dl>
+
+
+
