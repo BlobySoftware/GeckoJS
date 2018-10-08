@@ -2,8 +2,17 @@
 /*------------------------------------------------*/
 /*----------------------Selectors-------------------*/
 console.time("Time to load:");
-console.warn(document.head.childNodes[1].textContent , "is Powered by 🌐GeckoJS© 😉\nVisit: https:www.alexsan134.github.io/GeckoJS 🌐 ");
+console.warn(document.head.childNodes[1].textContent , "is Powered by GeckoJS© 😉\nVisit: https:www.alexsan134.github.io/GeckoJS");
 console.info("Try our original Limiters and Ranges (LnR)®❗️");
+
+var gJS = {
+    exec: (str) =>{
+        document.execCommand(str);
+    }
+}
+var dom = document;
+var bom = window;
+
 function g(str, arry){
     var el = document.querySelectorAll(str);
     var a = [];
@@ -178,8 +187,195 @@ Object.prototype.attr = function(str,value){
         }
     }
 }
-/*------------------------------------------------*/
-/*----------------------DOM-------------------*/
+
+Object.prototype.hover = function(over, out){
+    if(this.length > 1){
+        for(var i = 0;i < this.length;i++){
+            this[i].addEventListener("mouseover", over);
+            this[i].addEventListener("mouseout", out);
+        }
+    }else{
+        this.addEventListener("mouseover", over);
+        this.addEventListener("mouseout", out);
+    }
+}
+
+Object.prototype.animates = function(css, time){
+    var csT;
+    if(time==undefined){
+        csT = `transition:all 0.15s linear;${css}`;
+    }else{
+        csT = `transition:all ${time/1000}s linear;${css}`;
+    }
+    if(this.length > 1){
+        for(var i = 0;i < this.length;i++){
+            this[i].style.cssText =csT;
+        }
+    }else{
+        this.style.cssText =csT;
+    }
+}
+Object.prototype.html = function(str){
+    var arry = [];
+    if(str == undefined){
+        if(this.length > 1){
+            for(var i = 0;i < this.length;i++){
+                arry.push(this[i].innerHTML);
+            }
+            return arry;
+        }else{
+            return this.innerHTML;
+        }
+    }else{
+        if(this.length > 1){
+            for(var i = 0;i < this.length;i++){
+                this[i].innerHTML = str;
+            }
+        }else{
+            this.innerHTML = str;
+        }
+    }
+}
+Object.prototype.text = function(str){
+    var arry = [];
+    if(str == undefined){
+        if(this.length > 1){
+            for(var i = 0;i < this.length;i++){
+                arry.push(this[i].textContent);
+            }
+            return arry;
+        }else{
+            return this.textContent;
+        }
+    }else{
+        if(this.length > 1){
+            for(var i = 0;i < this.length;i++){
+                this[i].textContent = str;
+            }
+        }else{
+            this.textContent = str;
+        }
+    }
+}
+Object.prototype.class = function(str, value, rep){
+    var arry = [];
+    if(str == undefined || str == ""){
+        if(this.length > 1){
+            for(var i = 0;i < this.length;i++){
+                arry.push(this[i].className);
+            }
+            return arry;
+        }else{
+            return this.className; 
+        }
+    }else{
+        if(str == "remove"){
+            if(value == undefined || value == ""){
+                throw new Error("GeckoJS: no class value");
+            }else{
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        this[i].classList.remove(value);
+                    }
+                }else{
+                    this.classList.remove(value);
+                }
+            } 
+        }else if(str == "replace"){
+            if(value == undefined || value == ""){
+                throw new Error("GeckoJS: no class value");
+            }else{
+                if(rep == undefined || rep == ""){
+                    throw new Error("GeckoJS: no replace class value");
+                }else{
+                    if(this.length > 1){
+                        for(var i = 0;i < this.length;i++){
+                            this[i].classList.replace(value, rep);
+                        }
+                    }else{
+                        this.classList.replace(value, rep);
+                    }
+                }
+            } 
+        }else if(str == "toggle"){
+            if(value == undefined || value == ""){
+                throw new Error("GeckoJS: no class value");
+            }else{
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        this[i].classList.toggle(value);
+                    }
+                }else{
+                    this.classList.toggle(value);
+                }
+            } 
+        }
+        else if(str == "contains"){
+            if(value == undefined || value == ""){
+                throw new Error("GeckoJS: no class value");
+            }else{
+                if(this.length > 1){
+                    for(var i = 0;i < this.length;i++){
+                        arry.push(this[i].classList.contains(value));
+                    }
+                    return arry;
+                }else{
+                   return this.classList.contains(value);
+                }
+            } 
+        }
+        else{
+            if(this.length > 1){
+                for(var i = 0;i<this.length;i++){
+                    this[i].classList.add(str);
+                }
+            }else{
+                this.classList.add(str);
+            }
+        }
+    }
+}
+
+Object.prototype.find = function(str){
+var arry = [];
+var se = str.toLowerCase();
+var isId = false;
+if(se.charAt(0) == "#" || se.charAt(0) == "."){
+	se = se.substr(1, se.length);
+}
+
+	if(this.length > 1){
+		for(var i = 0;i<this.length;i++){
+for(var e = 0;e < this[i].childNodes.length;e++){
+		if(this[i].childNodes[e].localName == se || this[i].childNodes[e].id == se || this[i].childNodes[e].className == se){
+				arry.push(this[i].childNodes[0]);	
+			}
+
+}
+	
+		}
+	if(arry.length > 1){
+return arry;
+
+}else{
+	return arry[0];
+}
+	}else{
+	var ls = [];
+for(var e = 0;e < this.childNodes.length;e++){
+	if(this.childNodes[e].localName == se){
+		arry.push(this.childNodes[e]);
+	}
+}
+if(arry.length > 1){
+return arry;
+
+}else{
+	return arry[0];
+}
+
+	}
+}
 
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
