@@ -3,9 +3,8 @@
   </br>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg">
   <img src="https://img.shields.io/badge/build-success-brightgreen.svg">
-  <img src="https://img.shields.io/badge/build-success-brightgreen.svg">
+  [<img src="https://badge.fury.io/js/geckojs.svg">](https://www.npmjs.com/package/geckojs)
 </div>
-[![npm version](https://badge.fury.io/js/geckojs.svg)](https://badge.fury.io/js/geckojs)
 <br>
 <div align="justify"><h3>JS Library, with the most usually tools in your project, like String to Int convertions, array operations, async functions, promises, callbacks, ES6 implementation, HTTP request, AJAX, data convertions, data parsers, JSON, responsive design, dom manipulation, etc.</h3></div>
 
