@@ -1,6 +1,6 @@
 {
   "name": "geckojs",
-  "version": "1.0.73",
+  "version": "1.0.734",
   "description": "JS Library, with the most usually tools in your project.",
   "main": "gecko.min.js",
   "scripts": {
@@ -18,5 +18,5 @@
   "bugs": {
     "url": "https://github.com/alexsan134/GeckoJS/issues"
   },
-  "homepage": "https://github.com/alexsan134/GeckoJS#readme"
+  "homepage": "https://alexsan134.github.io/GeckoJsPage/"
 }
