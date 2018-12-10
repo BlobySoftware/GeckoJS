@@ -1,6 +1,6 @@
 {
   "name": "geckojs",
-  "version": "1.0.741",
+  "version": "1.0.743",
   "description": "JS Library, with the most usually tools in your project.",
   "main": "gecko.js",
   "scripts": {
@@ -11,7 +11,13 @@
     "url": "git+https://github.com/alexsan134/GeckoJS.git"
   },
   "keywords": [
-    "geckojs"
+    "geckojs",
+    "jQuery",
+    "ES6",
+    "selectors", 
+    "convertions",
+    "less",
+    "querySelectors"
   ],
   "author": "AlexSantos",
   "license": "MIT",
