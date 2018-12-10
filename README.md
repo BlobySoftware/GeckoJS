@@ -1,9 +1,7 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/alexsan134/GeckoJS/master/bns.png" width="500">
-
-  </br>
-  </br>
-  
+  <br/>
+  <br/>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg">
   <img src="https://img.shields.io/badge/build-success-brightgreen.svg">
   <img src="https://badge.fury.io/js/geckojs.svg">
