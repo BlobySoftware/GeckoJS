@@ -183,6 +183,3 @@ g("#myEl").event("click", () =>{
   g("#child").find("strong").css("background:red");
 });
 ```
-
-
-
