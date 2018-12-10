@@ -25,6 +25,7 @@ npm i geckojs
   <dd>* Most fasted selectors for the elements like querySelectors()</dd>
 </dl>
 -------------
+
 <div align="center"><h1>Documentation (Summary of Updates)</h1></div>
 <div align="left"><h3>Selectors:</h3></div>
 
