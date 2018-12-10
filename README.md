@@ -19,12 +19,11 @@ npm i geckojs
 --------------
 
 <dl>
-  <dt><h2>Features:</h2></dt>
+  <dt><h2>Latest Features:</h2></dt>
+  <dd>* New event outClick, check if you click outside of an element</dd>
   <dd>* All data convertions (String, Array, Number, Object)</dd>
   <dd>* Most fasted selectors for the elements like querySelectors()</dd>
-  <dd>* Easy structure (not write more do less lol)</dd>
 </dl>
-
 -------------
 <div align="center"><h1>Documentation (Summary of Updates)</h1></div>
 <div align="left"><h3>Selectors:</h3></div>
