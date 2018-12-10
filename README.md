@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/alexsan134/GickoJS/master/img/bns.png" width="500">
+  <img src="https://raw.githubusercontent.com/alexsan134/GickoJS/master/bns.png" width="500">
   </br>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg">
   <img src="https://img.shields.io/badge/build-success-brightgreen.svg">
