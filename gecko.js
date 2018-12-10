@@ -1,7 +1,7 @@
 'use strict'
 /*------------------------------------------------*/
 /*----------------------Selectors-------------------*/
-console.warn(document.title , "is Powered by GeckoJS© 😉\nVisit: https:www.alexsan134.github.io/GeckoJS");
+console.warn(document.title , "is Powered by GeckoJS© 😉\nVisit: https://alexsan134.github.io/GeckoJsPage/");
 console.info("Try our original Limiters and Ranges (LnR)®❗️");
 
 var dom = document;
