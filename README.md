@@ -21,9 +21,9 @@ npm i geckojs
 
 <dl>
   <dt><h2>Latest Features:</h2></dt>
+  <dd>* Select list of choised elements</dd>
   <dd>* New event outClick, check if you click outside of an element</dd>
   <dd>* All data convertions (String, Array, Number, Object)</dd>
-  <dd>* Most fasted selectors for the elements like querySelectors()</dd>
 </dl>
 
 -------------
@@ -39,6 +39,12 @@ g("yourElement").event("yourEvent", () =>{
   //Do something ...
   
 })
+
+g(["yourEl1", "yourEl2", "yourEl3", "... etc"]).event("yourEvent", () =>{
+  //Do something ...
+  
+})
+
 ```
 
 You can select what element you want:
@@ -110,56 +116,46 @@ g(".class", [3, -2]).event("yourEvent", () =>{
 
 <div align="left"><h4>Numbers:</h4></div>
 
-String:
+--------------
 
 ```javascript
-var n = 3;
-n.toString(); // "3"
+var n = 3457;
+n.toString(); // "3457"
+n.toArray(); // [3, 4, 5, 7]
+n.toObject(); // {3:5,5:7}
+n.toObject(true) // {0:"3", 1:"5", 2:"5", 3:"7"}
 ```
 
-Array:
-
-```javascript
-var n = 3343;
-n.toArray(); // [3, 3, 4, 3]
-```
 --------------
 
 <div align="left"><h4>Arrays:</h4></div>
 
 --------------
 
-String:
-
 ```javascript
-var arry = ["g", "e", "c", "k", "o", 1, "." , 0];
-arry.toString(); // "gecko1.0"
+var arry = ["g", "J", "S", "v.", 1];
+arry.toString(); // "gJSv.1"
+
+var arry2 = ["3", 5, "1", 8];
+arry2.toInt() // 3518
+
+var arry3 = ["name", "gJS", "version", "1.0"];
+arry2.toObject() // {name: "gJS", version: "1.0"}
+arry2.toObject(true) // {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 ```
 
-Number:
-
-```javascript
-var arry = ["29", 2, 5, "1"];
-arry.toInt(); // 29251
-```
 ---------------
 
 <div align="left"><h4>Strings:</h4></div>
 
 ---------------
 
-Number:
-
 ```javascript
-var str = "153";
-arry.toInt(); // 153
-```
-
-Array:
-
-```javascript
-var str = "gJs1";
-arry.toArray(); // ["g", "J", "s", 1]
+var str = "1536";
+str.toInt(); // 1536
+str.toArray(); // [1, 5, 3, 6]
+str.toObject(); // {1: "5", 3: "6"}
+str.toObject(true); // {0: "1", 1: "5", 2:"3", 3:"6}
 ```
 
 ----------------

@@ -15,6 +15,7 @@ function exec(str){
 function g(str, arry){
     var el = document.querySelectorAll(str);
     var a = [];
+    if(typeof(str) !== "object"){
     if(el.length > 1){
         if(arry == undefined){
             return document.querySelectorAll(str);
@@ -76,6 +77,16 @@ function g(str, arry){
     }
     }else{
         return document.querySelectorAll(str)[0];
+    }
+    }else{
+        var l = [];
+        for(var i=0;i<str.length;i++){
+            var p = document.querySelectorAll(str[i]);
+            for(var j=0;j<p.length;j++){
+                l.push(p[j]);
+            }
+        }
+        return l;
     }
 }
 gJS.prototype.ajx = function(data, success){
@@ -424,6 +435,22 @@ return arry;
 
 	}
 }
+Object.prototype.toArray = function(){
+    var keys = Object.keys(this);
+    var vals = Object.values(this);
+    var arry = [];
+    if(this.length > 0){
+        for(var i =0;i<keys.length;i++){
+            arry.push(keys[i]);
+            arry.push(vals[i]);
+        }
+        
+    }else{
+        arry.push(keys[0]);
+        arry.push(vals[0]);
+    }
+    return arry;
+}
 
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
@@ -457,14 +484,31 @@ String.prototype.toInt = function(){
 }
 
 //Converts string into Array
-String.prototype.toArray = function(){
+String.prototype.toArray = function(str){
     var arry = [];
-    for(var i = 0 ; i < this.length ;i++){
-        arry.push(this.charAt(i));
+    if(str == true){
+        return this.split(" ");
+    }else{
+        for(var i = 0 ; i < this.length ;i++){
+            arry.push(this.charAt(i));
+        }
+        return arry;
     }
-    return arry;
 }
-
+//String to object
+String.prototype.toObject = function(str){
+    var l = this.split(" ");
+    if(str == undefined){
+        var obj = {};
+      for(var i =0 ;i<l.length;i++){
+        obj[l[i]] = l[i+1];
+        i++;
+      }
+      return obj
+    }else if(str == true){
+        return Object.assign({}, l);
+    }
+}
 
 //Returns the position of a last substring found
 String.prototype.lastIndexOf = function (str){
@@ -530,7 +574,10 @@ String.prototype.toRGB = function() {
 String.prototype.replaceAt = function(replace, index) {
     return this.substr(0, index) + replace + this.substr(index+replace.length);
 }
-
+//Replace all string by other
+String.prototype.replaceAll = function(str, rep){
+    return this.split(str).join(rep);
+}
 //Cut a part of a string
 String.prototype.cut = function(cutStart, cutEnd){
     return this.substr(0,cutStart) + this.substr(cutEnd);
@@ -565,6 +612,7 @@ String.prototype.includeArray = function(array){
 
 
 /*------------------------------------------------*/
+
 /*----------------------Numbers-------------------*/
 //Return square root of a number default 2
 Number.prototype.root = function(e){
@@ -591,12 +639,37 @@ Number.prototype.toArray = function(){
     }
    return arry.map(Number);
 }
+Number.prototype.toObject = function(){
+    var str = this.toString();
+    var arry = [];
+    for(var i = 0 ; i < str.length ;i++){
+        arry.push(str.charAt(i));
+    }
+    return Object.assign({},arry.map(Number));
+}
 
 /*------------------------------------------------*/
 /*----------------------Arrays-------------------*/
 //Converts array in Int variable
 Array.prototype.toInt = function(){
     return Math.max(this);
+}
+//Combine two arrays
+Array.prototype.combine = function(arry){
+    return [...this, ...arry];
+}
+//Array to Object
+Array.prototype.toObject = function(str){
+    if(str == undefined){
+        var obj = {};
+      for(var i =0 ;i<this.length;i++){
+        obj[this[i]] = this[i+1];
+        i++;
+      }
+      return obj
+    }else if(str == true){
+        return Object.assign({}, this);
+    }
 }
 //Converts array in String variable
 Array.prototype.toString = function(){
