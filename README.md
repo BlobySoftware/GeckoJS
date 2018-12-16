@@ -3,7 +3,7 @@
   <br/>
   <br/>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg">
-  <img src="https://img.shields.io/badge/build-success-brightgreen.svg">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
   <img src="https://badge.fury.io/js/geckojs.svg">
 </div>
 <br>

@@ -598,13 +598,20 @@ String.prototype.replaceIndex = function(search, SearchIndex, replace){
 }
 
 //String includes an Array?
-String.prototype.includeArray = function(array){
+String.prototype.includeArray = function(array, strict){
     var respTS = false;
     for(var e = 0; e < array.length;e++){
         var arrC = this.toLowerCase();
-        if(arrC.includes(array[e]) == true){
-            respTS = true;
-            break;
+        if(strict){
+            if(arrC == array[e]){
+                respTS = true;
+                break;
+            }
+        }else if(strict == false || strict == undefined || strict == null){
+            if(arrC.includes(array[e])){
+                respTS = true;
+                break;
+            }
         }
     }
     return respTS;
