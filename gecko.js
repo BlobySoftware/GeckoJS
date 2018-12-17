@@ -439,25 +439,34 @@ Object.prototype.toArray = function(){
     var keys = Object.keys(this);
     var vals = Object.values(this);
     var arry = [];
-    if(this.length > 0){
+    if(keys.length > 0){
         for(var i =0;i<keys.length;i++){
             arry.push(keys[i]);
             arry.push(vals[i]);
         }
-        
     }else{
         arry.push(keys[0]);
         arry.push(vals[0]);
     }
     return arry;
 }
+Object.prototype.toString = function(){
+    var str = "";
+    var keys = Object.keys(this);
+    var vals = Object.values(this);
+    if(keys.length > 0){
+        for(var i =0;i<keys.length;i++){
+            str += `${keys[i]}:${vals[i]}, `;
+        }
+        str = str.substr(0, str.length-2);
+    }else{
+        str = `${keys[0]}:${vals[0]}`;
+    }
+    return str;
+}
 
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
-function trim (str) {
-    return str.replace(/^\s+|\s+$/gm,'');
-}
-
 //Returns random number
 function randomRange(min, max){
     return (Math.floor(Math.random() * (max - min + 1)) + min);
@@ -466,9 +475,11 @@ function randomRange(min, max){
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
+    var txt = this.toLowerCase();
+    var st = str.toLowerCase();
     var count = 0;
-    for(var i = 0;i < this.length;i++){
-        if(this.charAt(i) == str){
+    for(var i = 0;i < txt.length;i++){
+        if(txt.charAt(i) == st){
             count++;
         }
     }
@@ -477,6 +488,18 @@ String.prototype.searchRepeat=function(rpt, str){
     }else{
         return false;
     }
+}
+//How much repeat substring in a string
+String.prototype.getRepeat=function(str){
+    var txt = this.toLowerCase();
+    var st = str.toLowerCase();
+    var count = 0;
+    for(var i = 0;i < txt.length;i++){
+        if(txt.charAt(i) == st){
+            count++;
+        }
+    }
+    return count;
 }
 //Converts string into int variable
 String.prototype.toInt = function(){
@@ -512,8 +535,10 @@ String.prototype.toObject = function(str){
 
 //Returns the position of a last substring found
 String.prototype.lastIndexOf = function (str){
-    for(var i = 0;i < this.length;i++){
-        if( this.charAt(this.length - i) == str ){
+    var txt = this.toLowerCase();
+    var st = str.toLowerCase();
+    for(var i = 0;i < txt.length;i++){
+        if( txt.charAt(txt.length - i) == st ){
             return this.length-i;
         }
     }
@@ -527,8 +552,10 @@ String.prototype.capitalize = function() {
 //Returns the position of a specifc substring in string position
 String.prototype.getSearchPosition = function(str, index){
     var count = 0;
-    for(var i = 0; i < this.length; i++){
-        if(this.charAt(i) == str){
+    var txt = this.toLowerCase();
+    var st = str.toLowerCase();
+    for(var i = 0; i < txt.length; i++){
+        if(txt.charAt(i) == st){
             count++;
             if(count == index){
                 return i;
@@ -536,13 +563,12 @@ String.prototype.getSearchPosition = function(str, index){
         }
     }
 }
-
 //From RGB string to HEX code
 String.prototype.toHex = function() {
       var parts = this.substring(this.indexOf("(")).split(","),
-          r = parseInt(trim(parts[0].substring(1)), 10),
-          g = parseInt(trim(parts[1]), 10),
-          b = parseInt(trim(parts[2]), 10)
+          r = parseInt(parts[0].substring(1).trim() , 10),
+          g = parseInt(parts[1].trim(), 10),
+          b = parseInt(parts[2].trim(), 10)
           if(r == 0){
               r = "00";
           }
@@ -565,13 +591,13 @@ String.prototype.toRGB = function() {
             c= [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
         c= '0x'+c.join('');
-        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+        return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+')';
     }
 }
 
 
 //Replace a character in a specific index of a string
-String.prototype.replaceAt = function(replace, index) {
+String.prototype.replaceAt = function(index, replace) {
     return this.substr(0, index) + replace + this.substr(index+replace.length);
 }
 //Replace all string by other
@@ -582,12 +608,13 @@ String.prototype.replaceAll = function(str, rep){
 String.prototype.cut = function(cutStart, cutEnd){
     return this.substr(0,cutStart) + this.substr(cutEnd);
 }
-
 //Search and replace a character in a specific index of a string
 String.prototype.replaceIndex = function(search, SearchIndex, replace){
-    var count = 0;
-    for(var i = 0;i < this.length;i++){
-        if(this.charAt(i) == search){
+    var count = -1;
+    var st = search.toLowerCase();
+    var txt = this.toLowerCase();
+    for(var i = 0;i < txt.length;i++){
+        if(txt.charAt(i) == st){
             count++;
             if(count == SearchIndex){
                 var resp = this.replaceAt(i, replace);
@@ -703,20 +730,20 @@ Array.prototype.operation = function(sign, e){
             r[i]=r[i]+e;
         }else if(sign == "-" || sign == "dif" || sign == "minus"){
             r[i]=r[i]-e;
-        }else if(sign == "*" || sign == "mult"){
+        }else if(sign == "*" || sign == "x" || sign == "mult"){
             r[i]=r[i]*e;
-        }else if(sign == "/" || sign == "div"){
+        }else if(sign == "/" || sign == "div" || sign == "parts"){
             r[i]=r[i]/e;
-        }else if(sign == "^" || sign == "elev" || sign == "to"){
+        }else if(sign == "^" || sign == "elev" || sign == "to" || sign == "pow"){
             r[i]= Math.pow(r[i], e);
-        }else if(sign == "|" || sign == "root" || sign == "rad"){
+        }else if(sign == "|" || sign == "root" || sign == "rad" || sign == "sqrt"){
             if(e == undefined){
                 r[i]= Math.pow(r[i], 1/2);
             }else{
                 r[i]= Math.pow(r[i], 1/e);
             }
         }
-        else if(sign == "%" || sign == "mod"){
+        else if(sign == "%" || sign == "mod" || sign == "resd"){
             r[i]=r[i]%e;
         }
         else if(sign == "." || sign == "concat" || sign == "ct"){

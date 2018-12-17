@@ -140,8 +140,8 @@ var arry2 = ["3", 5, "1", 8];
 arry2.toInt() // 3518
 
 var arry3 = ["name", "gJS", "version", "1.0"];
-arry2.toObject() // {name: "gJS", version: "1.0"}
-arry2.toObject(true) // {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
+arry3.toObject() // {name: "gJS", version: "1.0"}
+arry3.toObject(true) // {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 ```
 
 ---------------
