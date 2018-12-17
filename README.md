@@ -10,11 +10,11 @@
 <div align="justify"><h3>JS Library, with the most usually tools in your project, like String to Int convertions, array operations, async functions, promises, callbacks, ES6 implementation, HTTP request, AJAX, data convertions, data parsers, JSON, responsive design, dom manipulation, etc.</h3></div>
 
 ## We have 1ms per loop vs 5ms per loop for jQuery
+<div align="center"><h1>Installation (Basic and Compressed)</h1>
+<h2>See the oficial documentation at <a href="https://alexsan134.github.io/GeckoJsPage">GeckoJs Page</a></h2>
+</div>
 
-<div align="center"><h1>Installation (Basic and Compressed)</h1></div>
-
-
-```
+```sh
 npm i geckojs
 ```
 --------------
@@ -38,12 +38,12 @@ You can select one element, or list of elements with class
 g("yourElement").event("yourEvent", () =>{
   //Do something ...
   
-})
+});
 
 g(["yourEl1", "yourEl2", "yourEl3", "... etc"]).event("yourEvent", () =>{
   //Do something ...
   
-})
+});
 
 ```
 
@@ -56,7 +56,7 @@ var number = 2;
 g("class", number).event("yourEvent", () =>{
   //Do something ...
   
-})
+});
 ```
 
 And you can select a range of a list with elements
@@ -120,10 +120,10 @@ g(".class", [3, -2]).event("yourEvent", () =>{
 
 ```javascript
 var n = 3457;
-n.toString(); // "3457"
-n.toArray(); // [3, 4, 5, 7]
-n.toObject(); // {3:5,5:7}
-n.toObject(true) // {0:"3", 1:"5", 2:"5", 3:"7"}
+n.toString(); //Returns "3457"
+n.toArray(); //Returns [3, 4, 5, 7]
+n.toObject(); //Returns {3:5,5:7}
+n.toObject(true); //Returns {0:"3", 1:"5", 2:"5", 3:"7"}
 ```
 
 --------------
@@ -134,14 +134,14 @@ n.toObject(true) // {0:"3", 1:"5", 2:"5", 3:"7"}
 
 ```javascript
 var arry = ["g", "J", "S", "v.", 1];
-arry.toString(); // "gJSv.1"
+arry.toString(); //Returns "gJSv.1"
 
 var arry2 = ["3", 5, "1", 8];
-arry2.toInt() // 3518
+arry2.toInt(); //Returns 3518
 
 var arry3 = ["name", "gJS", "version", "1.0"];
-arry3.toObject() // {name: "gJS", version: "1.0"}
-arry3.toObject(true) // {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
+arry3.toObject(); //Returns {name: "gJS", version: "1.0"}
+arry3.toObject(true); //Returns {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 ```
 
 ---------------
@@ -152,15 +152,27 @@ arry3.toObject(true) // {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 
 ```javascript
 var str = "1536";
-str.toInt(); // 1536
-str.toArray(); // [1, 5, 3, 6]
-str.toObject(); // {1: "5", 3: "6"}
-str.toObject(true); // {0: "1", 1: "5", 2:"3", 3:"6}
+str.toInt(); //Returns 1536
+str.toArray(); //Returns [1, 5, 3, 6]
+str.toObject(); //Returns {1: "5", 3: "6"}
+str.toObject(true); //Returns {0: "1", 1: "5", 2:"3", 3:"6}
 ```
 
 ----------------
 
+<div align="left"><h4>Objects:</h4></div>
 
+---------------
+
+```javascript
+var obj = {name : "Gecko", type: "JavaScript"};
+obj.toString() //Returns "name:Gecko, type:JavaScript";
+
+var obj3 = {job : "Enginer", weight: "73kg"};
+obj3.toArray() //Returns ["job", "Enginer", "weight", "73kg"];
+```
+
+----------------
 
 <div align="left"><h3>Methods:</h3></div>
 
