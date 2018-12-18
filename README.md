@@ -21,7 +21,7 @@ npm i geckojs
 
 <dl>
   <dt><h2>Latest Features:</h2></dt>
-  <dd>* Get absolut offset from the top of the window</dd>
+  <dd>* Get absolute offset from the top of the window</dd>
   <dd>* Select list of choised elements</dd>
   <dd>* New event outClick, check if you click outside of an element</dd>
 </dl>
