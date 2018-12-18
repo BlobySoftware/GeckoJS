@@ -178,7 +178,12 @@ Object.prototype.css = function(str, value){
         }
 return this;
 }
-
+Object.prototype.offset = function(){
+    var rect = this.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+}
 Object.prototype.attr = function(str,value){
     var arry = [];
     if(str == undefined || str == ""){
@@ -394,7 +399,6 @@ Object.prototype.class = function(str, value, rep){
     }
 return this;
 }
-
 Object.prototype.find = function(str){
 var arry = [];
 var se = str.toLowerCase();
@@ -449,6 +453,9 @@ Object.prototype.toArray = function(){
         arry.push(vals[0]);
     }
     return arry;
+}
+Object.prototype.objArray = function(){
+    return Array.from(this);
 }
 Object.prototype.toString = function(){
     var str = "";
