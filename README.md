@@ -55,7 +55,7 @@ You can select what element you want:
 ```javascript
 //If you want only one element of a list with classes
 
-var number = 2;
+let number = 2;
 g("class", number).event("yourEvent", () =>{
   //Do something ...
   
@@ -67,7 +67,7 @@ And you can select a range of a list with elements
 ```javascript
 //If you want to select a range: from first element to 7th element with '.class'
 
-var limiter = 7;
+let limiter = 7;
 g(".class", [limiter]).event("yourEvent", () =>{
   //Do something ...
   
@@ -81,7 +81,7 @@ it doesn't matter
 ```javascript
 //If you want to select a range: from 3th element to 8th element with '.class'
 
-var min = 3, max = 8;
+let min = 3, max = 8;
 
 g(".class", [max, min]).event("yourEvent", () =>{
   //Do something ...
@@ -122,7 +122,7 @@ g(".class", [3, -2]).event("yourEvent", () =>{
 --------------
 
 ```javascript
-var n = 3457;
+let n = 3457;
 n.toString(); //Returns "3457"
 n.toArray(); //Returns [3, 4, 5, 7]
 n.toObject(); //Returns {3:5,5:7}
@@ -136,13 +136,13 @@ n.toObject(true); //Returns {0:"3", 1:"5", 2:"5", 3:"7"}
 --------------
 
 ```javascript
-var arry = ["g", "J", "S", "v.", 1];
+let arry = ["g", "J", "S", "v.", 1];
 arry.toString(); //Returns "gJSv.1"
 
-var arry2 = ["3", 5, "1", 8];
+let arry2 = ["3", 5, "1", 8];
 arry2.toInt(); //Returns 3518
 
-var arry3 = ["name", "gJS", "version", "1.0"];
+let arry3 = ["name", "gJS", "version", "1.0"];
 arry3.toObject(); //Returns {name: "gJS", version: "1.0"}
 arry3.toObject(true); //Returns {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 ```
@@ -154,7 +154,7 @@ arry3.toObject(true); //Returns {0: "name", 1: "gJS", 2:"version", 3:"1.0"}
 ---------------
 
 ```javascript
-var str = "1536";
+let str = "1536";
 str.toInt(); //Returns 1536
 str.toArray(); //Returns [1, 5, 3, 6]
 str.toObject(); //Returns {1: "5", 3: "6"}
@@ -168,10 +168,10 @@ str.toObject(true); //Returns {0: "1", 1: "5", 2:"3", 3:"6}
 ---------------
 
 ```javascript
-var obj = {name : "Gecko", type: "JavaScript"};
+let obj = {name : "Gecko", type: "JavaScript"};
 obj.toString() //Returns "name:Gecko, type:JavaScript";
 
-var obj3 = {job : "Enginer", weight: "73kg"};
+let obj3 = {job : "Enginer", weight: "73kg"};
 obj3.toArray() //Returns ["job", "Enginer", "weight", "73kg"];
 ```
 

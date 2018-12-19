@@ -480,29 +480,6 @@ String.prototype.replaceIndex=function(search, SearchIndex, replace){
         }
     }
 }
-//String includes an Array?
-String.prototype.includeArray=function(array, strict=false){
-    if(array===undefined){err.msg("Array")}
-    else{
-        let respTS = false;
-        for(let i=0;i<array.length;i++){
-            let e = array[i];
-            const arrC = this.toLowerCase();
-            if(strict){
-                if(arrC == e){
-                    respTS = true;
-                    break;
-                }
-            }else{
-                if(arrC.includes(e)){
-                    respTS = true;
-                    break;
-                }
-            }
-        }
-        return respTS;
-    }
-}
 /*------------------------------------------------*/
 
 /*----------------------Numbers-------------------*/
@@ -539,6 +516,25 @@ Number.prototype.toObject=function(){
 //Converts array in Int variable
 Array.prototype.toInt=function(){
     return Math.max(this);
+}
+//Returns boolean if array includes a string
+Array.prototype.includeStr=function(str, strict=false){
+    if(str===undefined){err.msg("Array")}
+    else{
+        let state = false;
+        for(let i =0;i<this.length;i++){
+            if(strict){
+                if(this[i] === str){
+                    return true;
+                }
+            }else{
+                if(this[i].includes(str)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 //Combine two arrays
 Array.prototype.combine=function(arry){
