@@ -18,9 +18,9 @@
 npm i geckojs
 ```
 
-``sh
+```sh
 git clone https://github.com/BlobySoftware/GeckoJS.git
-``
+```
 
 --------------
 
