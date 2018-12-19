@@ -14,11 +14,9 @@
 <h2>See the oficial documentation at <a href="https://blobysoftware.github.io/GeckoJsPage/">GeckoJs Page</a></h2>
 </div>
 
-```sh
-npm i geckojs
 ```
+npm i geckojs
 
-```sh
 git clone https://github.com/BlobySoftware/GeckoJS.git
 ```
 
