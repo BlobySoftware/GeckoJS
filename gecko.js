@@ -6,25 +6,15 @@ let dom = document;
 let bom = window;
 let gJS = Object;
 const exec = s => document.execCommand(s);
-let errors = {
-    err0(){throw new Error("GeckoJS ErrCode 000: Selector is of type Number or Array")},
-    err1(){throw new Error("GeckoJS ErrCode 001: No class value")},
-    err2(){throw new Error("GeckoJS ErrCode 002: Selector argument is undefined")},
-    err3(){throw new Error("GeckoJS ErrCode 003: Event is undefined");},
-    err4(){throw new Error("GeckoJS ErrCode 004: Callback is undefined");},
-    err5(){throw new Error("GeckoJS ErrCode 005: No property value");},
-    err6(){throw new Error("GeckoJS ErrCode 006: Attribute is undefined");},
-    err7(){throw new Error("GeckoJS ErrCode 007: Mouseover function is undefined");},
-    err8(){throw new Error("GeckoJS ErrCode 008: Mouseout function is undefined");},
-    err9(){throw new Error("GeckoJS ErrCode 009: Mouseout Class name is undefined");},
-    err10(){throw new Error("GeckoJS ErrCode 010: Class replace name is undefined");}
+let err = {
+    msg(p){throw new Error(`GeckoJS Error: ${p} is undefined.`)}
 }
 const g = (str, arry) =>{
     const el = document.querySelectorAll(str);
     let a = [];
     if(typeof str !== "object"){
         if(el.length > 1){
-            if(!arry){return document.querySelectorAll(str);}
+            if(arry===undefined){return document.querySelectorAll(str);}
             else{
                 if(typeof arry === "object"){
                     if(arry.length <= 1){
@@ -65,10 +55,10 @@ const g = (str, arry) =>{
                         else{arry = el.length + arry;} 
                     }
                 return el[arry];
-                }else{errors.err0();}
+                }else{err.msg("Unexpected type or")}
             }
         }else{return document.querySelectorAll(str)[0];}
-    }else if(!str){errors.err1();}
+    }else if(!str){err.msg("Selector query")}
     else{
         let l = [];
         str.map(e => {
@@ -91,7 +81,7 @@ gJS.prototype.ajx=function(data, success){
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
 Object.prototype.event=function(event, fn){
-    if(!event){errors.err3();}
+    if(!event){err.msg("Event name");}
     else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
         document.addEventListener("click", e => {
             const els = e.target;
@@ -108,7 +98,7 @@ Object.prototype.event=function(event, fn){
             }
         })
     }else{
-        if(!fn){errors.err4();}
+        if(!fn){err.msg("Function")}
         else{
             if(this.length > 1){Array.from(this).map(e => e.addEventListener(event, fn));}
             else{this.addEventListener(event, fn);}
@@ -122,7 +112,7 @@ Object.prototype.css=function(str, value){
         else{return window.getComputedStyle(this);}
     }else{
         if(str == "get"){
-            if(!value){errors.err5();}
+            if(!value){err.msg("Property value")}
             else{
                 if(this.length > 1){
                     return Array.from(this).map(e => window.getComputedStyle(e).getPropertyValue(value));
@@ -142,9 +132,9 @@ Object.prototype.offset=function(){
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
 }
 Object.prototype.attr=function(str,value){
-    if(!str){errors.err6();}
+    if(!str){err.msg("Attribute name")}
     else{
-        if(!value){
+        if(value===undefined){
             if(this.length > 1){return Array.from(this).map(e => e.getAttribute(str));}
             else{return this.getAttribute(str);}
         }else{
@@ -166,9 +156,9 @@ Object.prototype.attr=function(str,value){
     return this;
 }
 Object.prototype.hover=function(over, out){
-    if(!over){errors.err7();}
+    if(!over){err.msg("Mouseover function")}
     else{
-        if(!out){errors.err8();}
+        if(!out){err.msg("Mouseout function")}
         else{
             if(this.length > 1){
                 Array.from(this).map(e => {
@@ -185,8 +175,8 @@ Object.prototype.hover=function(over, out){
 }
 Object.prototype.animates=function(css, time, delay=0){
     let csT;
-    if(!css){errors.err5();}
-    if(!time){csT = `transition:all 0.15s linear;${css}`;}
+    if(!css){err.msg("Property")}
+    if(time===undefined){csT = `transition:all 0.15s linear;${css}`;}
     else{csT = `transition:all ${time/1000}s linear;${css}`;}
     if(this.length > 1){
         setTimeout(() => {
@@ -200,7 +190,7 @@ Object.prototype.animates=function(css, time, delay=0){
     return this;
 }
 Object.prototype.html=function(str){
-    if(!str){
+    if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.innerHTML);}
         else{return this.innerHTML;}
     }else{
@@ -210,7 +200,7 @@ Object.prototype.html=function(str){
     return this;
 }
 Object.prototype.text=function(str){
-    if(!str){
+    if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.textContent);}
         else{return this.textContent;}
     }else{
@@ -225,32 +215,32 @@ Object.prototype.class=function(str, value, rep){
         else{return this.className;}
     }else{
         if(str == "remove"){
-            if(!value){errors.err9();}
+            if(!value){err.msg("Class value")}
             else{
                 if(this.length > 1){Array.from(this).map(e => e.classList.remove(value))}
                 else{this.classList.remove(value);}
             } 
         }else if(str == "replace"){
-            if(!value){errors.err9();}
+            if(!value){err.msg("Replace value")}
             else{
-                if(!rep){errors.err10();}
+                if(!rep){err.msg("New class value")}
                 else{
                     if(this.length > 1){Array.from(this).map(e => e.classList.replace(value, rep));}
                     else{this.classList.replace(value, rep);}
                 }
             } 
         }else if(str == "toggle"){
-            if(!value){errors.err9();}
+            if(!value){err.msg("Class value")}
             else{
                 if(this.length > 1){Array.from(this).map(e => e.classList.toggle(value));}
                 else{this.classList.toggle(value);}
             } 
         }
         else if(str == "contains"){
-            if(!value){errors.err9();}
+            if(!value){err.msg("Class value")}
             else{
-                if(this.length > 1){Array.from(this).map(e => e.classList.contains(value));}
-                else{this.classList.contains(value);}
+                if(this.length > 1){return Array.from(this).map(e => e.classList.contains(value));}
+                else{return this.classList.contains(value);}
             } 
         }
         else{
@@ -261,7 +251,7 @@ Object.prototype.class=function(str, value, rep){
     return this;
 }
 Object.prototype.find=function(str){
-    if(!str){errors.err0();}
+    if(!str){err.msg("Selector name")}
     else{
         let arry = [];
         let se = str.toLowerCase();
@@ -304,9 +294,9 @@ Object.prototype.objArray=function(){
     return Array.from(this);
 }
 Object.prototype.toString=function(){
-    var str = "";
-    var keys = Object.keys(this);
-    var vals = Object.values(this);
+    let str = "";
+    let keys = Object.keys(this);
+    let vals = Object.values(this);
     if(keys.length){
         keys.map((e, i) => str += `${e}:${vals[i]}, `);
         str = str.substr(0, str.length-2);
@@ -316,298 +306,305 @@ Object.prototype.toString=function(){
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
 //Returns random number
-function randomRange(min, max){
-    return (Math.floor(Math.random() * (max - min + 1)) + min);
+const randomRange = (min, max) =>{
+    if(min===undefined){err.msg("Min");}
+    else{
+        if(max===undefined){err.msg("Max");}
+        else{return (Math.floor(Math.random() * (max - min + 1)) + min);}
+    }
 }
-
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
-    var txt = this.toLowerCase();
-    var st = str.toLowerCase();
-    var count = 0;
-    for(var i = 0;i < txt.length;i++){
-        if(txt.charAt(i) == st){
-            count++;
+    if(!rpt){err.msg("Number of repeats")}
+    else{
+        if(str===undefined){err.msg("Character")}
+        else{
+            const txt = this.toLowerCase();
+            const st = str.toLowerCase();
+            let count = 0;
+            for(let i = 0;i < txt.length;i++){
+                if(txt.charAt(i)==st){count++;}
+            }
+            if(count==rpt){return true;}
+            else{return false;}
         }
-    }
-    if(count == rpt){
-        return true;
-    }else{
-        return false;
     }
 }
 //How much repeat substring in a string
 String.prototype.getRepeat=function(str){
-    var txt = this.toLowerCase();
-    var st = str.toLowerCase();
-    var count = 0;
-    for(var i = 0;i < txt.length;i++){
-        if(txt.charAt(i) == st){
-            count++;
+    if(str===undefined){err.msg("Character")}
+    else{
+        const txt = this.toLowerCase();
+        const st = str.toLowerCase();
+        let count = 0;
+        for(let i = 0;i < txt.length;i++){
+            if(txt.charAt(i) == st){count++;}
         }
+        return count;
     }
-    return count;
 }
 //Converts string into int variable
-String.prototype.toInt = function(){
+String.prototype.toInt=function(){
     return Math.max(this);
 }
-
-//Converts string into Array
-String.prototype.toArray = function(str){
-    var arry = [];
-    if(str == true){
-        return this.split(" ");
-    }else{
-        for(var i = 0 ; i < this.length ;i++){
+//Converts string to Array
+String.prototype.toArray=function(str=false){
+    let arry = [];
+    if(str){return this.split(" ");}
+    else{
+        for(let i = 0 ; i < this.length ;i++){
             arry.push(this.charAt(i));
         }
         return arry;
     }
 }
 //String to object
-String.prototype.toObject = function(str){
-    var l = this.split(" ");
-    if(str == undefined){
-        var obj = {};
-      for(var i =0 ;i<l.length;i++){
+String.prototype.toObject=function(str=false){
+    const l = this.split(" ");
+    if(!str){
+        let obj = {};
+      for(let i =0 ;i<l.length;i++){
         obj[l[i]] = l[i+1];
         i++;
       }
       return obj
-    }else if(str == true){
-        return Object.assign({}, l);
-    }
+    }else if(str){return Object.assign({}, l);}
 }
-
 //Returns the position of a last substring found
-String.prototype.lastIndexOf = function (str){
-    var txt = this.toLowerCase();
-    var st = str.toLowerCase();
-    for(var i = 0;i < txt.length;i++){
-        if( txt.charAt(txt.length - i) == st ){
-            return this.length-i;
+String.prototype.lastIndexOf=function (str){
+    if(str===undefined){err.msg("Character")}
+    else{
+        const txt = this.toLowerCase();
+        const st = str.toLowerCase();
+        for(let i = 0;i < txt.length;i++){
+            if( txt.charAt(txt.length - i) == st ){
+                return this.length-i;
+            }
         }
     }
 }
-
 //Capitalize an element
-String.prototype.capitalize = function() {
+String.prototype.capitalize=function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-
 //Returns the position of a specifc substring in string position
-String.prototype.getSearchPosition = function(str, index){
-    var count = 0;
-    var txt = this.toLowerCase();
-    var st = str.toLowerCase();
-    for(var i = 0; i < txt.length; i++){
-        if(txt.charAt(i) == st){
-            count++;
-            if(count == index){
-                return i;
+String.prototype.getSearchPosition=function(str, index){
+    if(str===undefined){err.msg("Character")}
+    else{
+        if(index===undefined){err.msg("Index")}
+        else{
+            let count = -1;
+            const txt = this.toLowerCase();
+            const st = str.toLowerCase();
+            for(let i = 0; i < txt.length; i++){
+                if(txt.charAt(i) == st){
+                    count++;
+                    if(count == index){
+                        return i;
+                    }
+                }
             }
         }
     }
 }
 //From RGB string to HEX code
-String.prototype.toHex = function() {
-      var parts = this.substring(this.indexOf("(")).split(","),
-          r = parseInt(parts[0].substring(1).trim() , 10),
-          g = parseInt(parts[1].trim(), 10),
-          b = parseInt(parts[2].trim(), 10)
-          if(r == 0){
-              r = "00";
-          }
-          if (g == 0){
-              g = "00";
-          }
-          if (b == 0){
-              b = "00";
-          }
-          var hex = "#"+r.toString(16)+g.toString(16)+b.toString(16);
-          return hex;
+String.prototype.toHex=function() {
+    let parts = this.substring(this.indexOf("(")).split(","),
+        r = parseInt(parts[0].substring(1).trim() , 10),
+        g = parseInt(parts[1].trim(), 10),
+        b = parseInt(parts[2].trim(), 10);
+    if(r === 0){r = "00";}
+    if(g === 0){g = "00";}
+    if (b === 0){b = "00";}
+    let hex = "#"+r.toString(16)+g.toString(16)+b.toString(16);
+    return hex;
 }
-
 //From HEX string to RGB code
-String.prototype.toRGB = function() {
-    var c;
+String.prototype.toRGB=function() {
+    let c;
     if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(this)){
         c= this.substring(1).split('');
-        if(c.length== 3){
+        if(c.length==3){
             c= [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
         c= '0x'+c.join('');
         return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+')';
     }
 }
-
-
 //Replace a character in a specific index of a string
-String.prototype.replaceAt = function(index, replace) {
-    return this.substr(0, index) + replace + this.substr(index+replace.length);
+String.prototype.replaceAt=function(index, replace) {
+    if(index===undefined){err.msg("Index")}
+    else{
+        if(replace===undefined){err.msg("Character")}
+        else{return this.substr(0, index) + replace + this.substr(index+replace.length);}
+    }
 }
 //Replace all string by other
-String.prototype.replaceAll = function(str, rep){
-    return this.split(str).join(rep);
+String.prototype.replaceAll=function(str, rep){
+    if(str===undefined){err.msg("Character")}
+    else{
+        if(rep===undefined){err.msg("Replace Character")}
+        else{return this.split(str).join(rep);}
+    }
 }
 //Cut a part of a string
-String.prototype.cut = function(cutStart, cutEnd){
-    return this.substr(0,cutStart) + this.substr(cutEnd);
+String.prototype.cut=function(cutStart, cutEnd){
+    if(cutStart===undefined){err.msg("CutStart")}
+    else{
+        if(cutEnd===undefined){err.msg("CutEnd")}
+        else{return this.substr(0,cutStart) + this.substr(cutEnd);}
+    }
 }
 //Search and replace a character in a specific index of a string
-String.prototype.replaceIndex = function(search, SearchIndex, replace){
-    var count = -1;
-    var st = search.toLowerCase();
-    var txt = this.toLowerCase();
-    for(var i = 0;i < txt.length;i++){
-        if(txt.charAt(i) == st){
-            count++;
-            if(count == SearchIndex){
-                var resp = this.replaceAt(i, replace);
-                return resp;
+String.prototype.replaceIndex=function(search, SearchIndex, replace){
+    if(search===undefined){err.msg("Character")}
+    else{
+        if(SearchIndex===undefined){err.msg("SearchIndex")}
+        else{
+            if(replace==undefined){err.msg("Replace character")}
+            else{
+                let count = -1;
+                const st = search.toLowerCase();
+                const txt = this.toLowerCase();
+                for(let i = 0;i < txt.length;i++){
+                    if(txt.charAt(i) == st){
+                        count++;
+                        if(count == SearchIndex){
+                            let resp = this.replaceAt(i, replace);
+                            return resp;
+                        }
+                    }
+                }
             }
         }
     }
 }
-
 //String includes an Array?
-String.prototype.includeArray = function(array, strict){
-    var respTS = false;
-    for(var e = 0; e < array.length;e++){
-        var arrC = this.toLowerCase();
-        if(strict){
-            if(arrC == array[e]){
-                respTS = true;
-                break;
-            }
-        }else if(strict == false || strict == undefined || strict == null){
-            if(arrC.includes(array[e])){
-                respTS = true;
-                break;
+String.prototype.includeArray=function(array, strict=false){
+    if(array===undefined){err.msg("Array")}
+    else{
+        let respTS = false;
+        for(let i=0;i<array.length;i++){
+            let e = array[i];
+            const arrC = this.toLowerCase();
+            if(strict){
+                if(arrC == e){
+                    respTS = true;
+                    break;
+                }
+            }else{
+                if(arrC.includes(e)){
+                    respTS = true;
+                    break;
+                }
             }
         }
+        return respTS;
     }
-    return respTS;
 }
-
-
 /*------------------------------------------------*/
 
 /*----------------------Numbers-------------------*/
 //Return square root of a number default 2
-Number.prototype.root = function(e){
-    if(e == undefined){
-        return  Math.sqrt(this);
-    }else{
-        return Math.pow(this, 1/e);
-    }
+Number.prototype.root=function(e){
+    if(e===undefined){return  Math.sqrt(this);}
+    else{return Math.pow(this, 1/e);}
 }
 //Return number elevate to an exponent default 2
-Number.prototype.pow = function(e){
-    if(e == undefined){
-        return  Math.pow(this, 2);
-    }else{
-        return Math.pow(this, e);
-    }
+Number.prototype.pow=function(e){
+    if(e===undefined){return  Math.pow(this, 2);}
+    else{return Math.pow(this, e);}
 }
 //Converts number into Array
-Number.prototype.toArray = function(){ 
-    var str = this.toString();
-    var arry = [];
-    for(var i = 0 ; i < str.length ;i++){
+Number.prototype.toArray=function(){ 
+    let str = this.toString();
+    let arry = [];
+    for(let i = 0 ; i < str.length ;i++){
         arry.push(str.charAt(i));
     }
    return arry.map(Number);
 }
-Number.prototype.toObject = function(){
-    var str = this.toString();
-    var arry = [];
-    for(var i = 0 ; i < str.length ;i++){
+//Converts number into Object
+Number.prototype.toObject=function(){
+    const str = this.toString();
+    let arry = [];
+    for(let i = 0 ; i < str.length ;i++){
         arry.push(str.charAt(i));
     }
     return Object.assign({},arry.map(Number));
 }
-
 /*------------------------------------------------*/
 /*----------------------Arrays-------------------*/
 //Converts array in Int variable
-Array.prototype.toInt = function(){
+Array.prototype.toInt=function(){
     return Math.max(this);
 }
 //Combine two arrays
-Array.prototype.combine = function(arry){
-    return [...this, ...arry];
+Array.prototype.combine=function(arry){
+    if(!arry){err.msg("Array")}
+    else{
+        return [...this, ...arry]
+    };
 }
 //Array to Object
 Array.prototype.toObject = function(str){
-    if(str == undefined){
-        var obj = {};
-      for(var i =0 ;i<this.length;i++){
+    if(str === undefined){
+        let obj = {};
+      for(let i =0 ;i<this.length;i++){
         obj[this[i]] = this[i+1];
         i++;
       }
       return obj
-    }else if(str == true){
+    }else if(str){
         return Object.assign({}, this);
     }
 }
 //Converts array in String variable
 Array.prototype.toString = function(){
-    var tl =  this.map(String);
+    let tl =  this.map(String);
     return tl.join("");
 }
 //Random the order of the elements in array
-Array.prototype.randomize = function(){
-   for(var i = 0; i < this.length ; i++){
-       var current = this[i];
-       var rd = (Math.floor(Math.random() * (this.length)));
-       var prev = this[rd];
-        this[i] = prev;
-        this[rd] = current;
-   }
+Array.prototype.randomize=function(){
+    this.map(e => {
+        let current = e;
+        let rd = (Math.floor(Math.random() * (this.length)));
+        let prev = this[td];
+        e = prev;
+        this[td] = current;
+    })
    return this;
 }
-
 //Return the same array with the operated values
-Array.prototype.operation = function(sign, e){
-    var r = this.map(Number);
-    for(var i = 0; i < r.length; i++){
-        if(sign == "+" || sign == "plus" || sign == "add"){
-            r[i]=r[i]+e;
-        }else if(sign == "-" || sign == "dif" || sign == "minus"){
-            r[i]=r[i]-e;
-        }else if(sign == "*" || sign == "x" || sign == "mult"){
-            r[i]=r[i]*e;
-        }else if(sign == "/" || sign == "div" || sign == "parts"){
-            r[i]=r[i]/e;
-        }else if(sign == "^" || sign == "elev" || sign == "to" || sign == "pow"){
-            r[i]= Math.pow(r[i], e);
-        }else if(sign == "|" || sign == "root" || sign == "rad" || sign == "sqrt"){
-            if(e == undefined){
-                r[i]= Math.pow(r[i], 1/2);
-            }else{
-                r[i]= Math.pow(r[i], 1/e);
+Array.prototype.operation=function(sign, e){
+    if(!sign){err.msg("Sign")}
+    else{
+        let r = this.map(Number);
+        r.map((s,i) =>{
+            if(sign == "+" || sign == "plus" || sign == "add"){s=s+e;}
+            else if(sign == "-" || sign == "dif" || sign == "minus"){s=s-e;}
+            else if(sign == "*" || sign == "x" || sign == "mult"){s=s*e;}
+            else if(sign == "/" || sign == "div" || sign == "parts"){s=s/e;}
+            else if(sign == "^" || sign == "elev" || sign == "to" || sign == "pow"){s= Math.pow(s, e);}
+            else if(sign == "|" || sign == "root" || sign == "rad" || sign == "sqrt"){
+                if(e===undefined){s= Math.pow(s, 1/2);}
+                else{s= Math.pow(s, 1/e);}
             }
-        }
-        else if(sign == "%" || sign == "mod" || sign == "resd"){
-            r[i]=r[i]%e;
-        }
-        else if(sign == "." || sign == "concat" || sign == "ct"){
-            this[i]=this[i]+e;
-            return this;
-        }
+            else if(sign == "%" || sign == "mod" || sign == "resd"){s=s%e;}
+            else if(sign == "." || sign == "concat" || sign == "ct"){
+                this[i]=this[i]+e;
+                return this;
+            }
+        })
     }
     return r;
 }
-
 //Get the max value of an Array(list of numbers)
-Array.prototype.max = function(){
+Array.prototype.max=function(){
     return Math.max(...this.map(Number));
 }
 //Get the min value of an Array(list of numbers)
-Array.prototype.min = function(){
+Array.prototype.min=function(){
     return Math.min(...this.map(Number));
 }
-
