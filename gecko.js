@@ -1,477 +1,318 @@
 'use strict'
-/*------------------------------------------------*/
-/*----------------------Selectors-------------------*/
 console.warn(document.title , "is Powered by GeckoJS© 😉\nVisit: https://blobysoftware.github.io/GeckoJsPage/");
 console.info("Try our original Limiters and Ranges (LnR)®❗️");
 
-var dom = document;
-var bom = window;
-var gJS = Object;
-
-function exec(str){
-    return document.execCommand(str);
+let dom = document;
+let bom = window;
+let gJS = Object;
+const exec = s => document.execCommand(s);
+let errors = {
+    err0(){throw new Error("GeckoJS ErrCode 000: Selector is of type Number or Array")},
+    err1(){throw new Error("GeckoJS ErrCode 001: No class value")},
+    err2(){throw new Error("GeckoJS ErrCode 002: Selector argument is undefined")},
+    err3(){throw new Error("GeckoJS ErrCode 003: Event is undefined");},
+    err4(){throw new Error("GeckoJS ErrCode 004: Callback is undefined");},
+    err5(){throw new Error("GeckoJS ErrCode 005: No property value");},
+    err6(){throw new Error("GeckoJS ErrCode 006: Attribute is undefined");},
+    err7(){throw new Error("GeckoJS ErrCode 007: Mouseover function is undefined");},
+    err8(){throw new Error("GeckoJS ErrCode 008: Mouseout function is undefined");},
+    err9(){throw new Error("GeckoJS ErrCode 009: Mouseout Class name is undefined");},
+    err10(){throw new Error("GeckoJS ErrCode 010: Class replace name is undefined");}
 }
-
-function g(str, arry){
-    var el = document.querySelectorAll(str);
-    var a = [];
-    if(typeof(str) !== "object"){
-    if(el.length > 1){
-        if(arry == undefined){
-            return document.querySelectorAll(str);
-        }else{
-    if(typeof(arry) == "object"){
-         if(arry.length == 1){
-            var l = arry[0];
-            if(l >= el.length){
-                l = el.length-1;
-            }if(l < 0){
-                l = el.length + l;
+const g = (str, arry) =>{
+    const el = document.querySelectorAll(str);
+    let a = [];
+    if(typeof str !== "object"){
+        if(el.length > 1){
+            if(!arry){return document.querySelectorAll(str);}
+            else{
+                if(typeof arry === "object"){
+                    if(arry.length <= 1){
+                        const l = arry[0];
+                        if(l >= el.length){l = el.length-1;}
+                        if(l < 0){l = el.length + l;}
+                        for(let i = 0;i<l+1;i++){
+                            a.push(el[i]);
+                        }
+                        return a; 
+                    }else{
+                        //DEF BOTH
+                        let [mn, mx] = arry;mx += 1;
+                        if(mx < mn){
+                            if(mx > 0){
+                                mx = arry[0]+1;
+                                mn = arry[1];
+                            }else{
+                                mn = arry[0];
+                                mx = el.length+arry[1]+1;
+                            }
+                        }else if(mx > mn){
+                            if(mn < 0){
+                                mn = arry[1];
+                                mx = el.length+arry[0];
+                            }
+                        }
+                        if(arry[0] == arry[1]){return el[mx-1];}
+                        for(mn;mn < mx;mn++){
+                            a.push(el[mn]);
+                        }
+                        return a;
+                    }
+                }else if(typeof arry === "number"){
+                    if(arry >= el.length){arry = el.length-1;}
+                    if(arry < 0){
+                        if(Math.abs(arry) > el.length-1){arry = 0;}
+                        else{arry = el.length + arry;} 
+                    }
+                return el[arry];
+                }else{errors.err0();}
             }
-            for(var i = 0;i<l+1;i++){
-                a.push(el[i]);
-            }
-            return a; 
-        }else{
-            //DEF BOTH
-            var mx = arry[1]+1;
-            var mn = arry[0];
-            if(mx < mn){
-                if(mx > 0){
-                    mx = arry[0]+1;
-                    mn = arry[1];
-                }else{
-                    mn = arry[0];
-                    mx = el.length+arry[1]+1;
-                }
-            }else if(mx > mn){
-                if(mn < 0){
-                    mn = arry[1];
-                    mx = el.length+arry[0];
-                }
-            }
-            if(arry[0] == arry[1]){
-                return el[mx-1];
-            }
-            for(mn;mn < mx;mn++){
-                a.push(el[mn]);
-            }
-            return a;
-        }
-    }else if(typeof(arry) == "number"){
-        if(arry >= el.length){
-            arry = el.length-1;
-        }
-        if(arry < 0){
-            if(Math.abs(arry) > el.length-1){
-                arry = 0;
-            }else{
-                arry = el.length + arry;
-            }
-            
-        }
-        return el[arry];
-    }else{
-        throw new Error("GeckoJS: selector is of type Number or Array");
-    }
-    }
-    }else{
-        return document.querySelectorAll(str)[0];
-    }
-    }else{
-        var l = [];
-        for(var i=0;i<str.length;i++){
-            var p = document.querySelectorAll(str[i]);
-            for(var j=0;j<p.length;j++){
-                l.push(p[j]);
-            }
-        }
+        }else{return document.querySelectorAll(str)[0];}
+    }else if(!str){errors.err1();}
+    else{
+        let l = [];
+        str.map(e => {
+            let p = document.querySelectorAll(e);
+            Array.from(p).map(e => l.push(e));
+        })
         return l;
     }
 }
-gJS.prototype.ajx = function(data, success){
-    var xml = new XMLHttpRequest;
-    var msg = {
+gJS.prototype.ajx=function(data, success){
+    const xml = new XMLHttpRequest;
+    const msg = {
         dataMsg : Object.values(data.data),
         dataKeys : Object.keys(data.data),
         complete : "?"
     }
-    for(var i = 0; i < msg.dataMsg.length; i++){
-        msg.complete += `${msg.dataKeys[i]}=${msg.dataMsg[i]}&`;
-    }
+    msg.dataMsg.map((e,i) => msg.complete += `${msg.dataKeys[i]}=${e}&`);
     xml.open(data.method, data.url, true, data.username, data.password);
     xml.onreadystatechange = success;
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
-Object.prototype.event = function(event, fn){
-    if(event == undefined || event == ""){
-        throw new Error("GeckoJS: No event");
-    }else if(event == "outClick" || event == "outclick" || event == "oClick" || event == "oclick"){
-        document.addEventListener("click", (e)=>{
-            var els = e.target;
-            var sp = true;
+Object.prototype.event=function(event, fn){
+    if(!event){errors.err3();}
+    else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
+        document.addEventListener("click", e => {
+            const els = e.target;
+            let sp = true;
             if(this.length > 1){
-                for(var i = 0;i<this.length;i++){
+                for(let i = 0;i<this.length;i++){
                     if(els == this[i]){
                         sp = false;
                         break;
                     }
-                }
-                if(sp){
-                    fn(e);
-                }
+                }if(sp){fn(e);}
             }else{
-                if(els != this){
-                   fn(e);
-                }
+                if(els!=this){fn(e);}
             }
         })
     }else{
-        if(fn == undefined || fn == ""){
-            throw new Error("GeckoJS: No Callback");
+        if(!fn){errors.err4();}
+        else{
+            if(this.length > 1){Array.from(this).map(e => e.addEventListener(event, fn));}
+            else{this.addEventListener(event, fn);}
+        }
+    }
+    return this;
+}
+Object.prototype.css=function(str, value){
+    if(!str){
+        if(this.length > 1){return Array.from(this).map(e => window.getComputedStyle(e));}
+        else{return window.getComputedStyle(this);}
+    }else{
+        if(str == "get"){
+            if(!value){errors.err5();}
+            else{
+                if(this.length > 1){
+                    return Array.from(this).map(e => window.getComputedStyle(e).getPropertyValue(value));
+                }else{return window.getComputedStyle(this).getPropertyValue(value);}
+            } 
         }else{
-            if(this.length > 1){
-                for(var i = 0;i<this.length;i++){
-                    this[i].addEventListener(event, fn);
-                }
-            }else{
-                this.addEventListener(event, fn); 
+            if(this.length > 1){Array.from(this).map(e => e.style.cssText=str);}
+            else{this.style.cssText=str;}
+        }
+    }
+    return this;
+}
+Object.prototype.offset=function(){
+    const rect = this.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+}
+Object.prototype.attr=function(str,value){
+    if(!str){errors.err6();}
+    else{
+        if(!value){
+            if(this.length > 1){return Array.from(this).map(e => e.getAttribute(str));}
+            else{return this.getAttribute(str);}
+        }else{
+            if(str == "get"){
+                if(this.length > 1){return Array.from(this).map(e => e.getAttribute(value));}
+                else{return this.getAttribute(value);}
+            }else if(str == "has"){
+                if(this.length > 1){return Array.from(this).map(e => e.hasAttribute(value));}
+                else{return this.hasAttribute(value);}
+            }else if(str == "remove"){
+                if(this.length > 1){return Array.from(this).map(e => e.removeAttribute(value));}
+                else{return this.removeAttribute(value);}  
+            }else{   
+                if(this.length > 1){Array.from(this).map(e => e.setAttribute(str, value));}
+                else{this.setAttribute(str, value);}  
             }
         }
     }
     return this;
 }
-Object.prototype.css = function(str, value){
-    var arry = [];
-        if(str == undefined || str == ""){
+Object.prototype.hover=function(over, out){
+    if(!over){errors.err7();}
+    else{
+        if(!out){errors.err8();}
+        else{
             if(this.length > 1){
-                for(var i = 0;i < this.length;i++){
-                    arry.push(window.getComputedStyle(this));
-                }
-                return arry;
+                Array.from(this).map(e => {
+                    e.addEventListener("mouseover", over);
+                    e.addEventListener("mouseout", out);
+                });
             }else{
-                return window.getComputedStyle(this);
-            }
-        }else{
-            if(str == "get"){
-                if(value == undefined || value == ""){
-                    throw new Error("GeckoJS: no property value");
-                }else{
-                    if(this.length > 1){
-                        for(var i = 0;i < this.length;i++){
-                            arry.push(window.getComputedStyle(this[i]).getPropertyValue(value));
-                        }
-                        return arry;
-                    }else{
-                        return window.getComputedStyle(this).getPropertyValue(value);
-                    }
-                } 
-            }else{
-                if(this.length > 1){
-                    for(var i = 0;i<this.length;i++){
-                        this[i].style.cssText=str;
-                    }
-                }else{
-                    this.style.cssText=str;
-                }
+                this.addEventListener("mouseover", over);
+                this.addEventListener("mouseout", out);
             }
         }
-return this;
-}
-Object.prototype.offset = function(){
-    var rect = this.getBoundingClientRect(),
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-}
-Object.prototype.attr = function(str,value){
-    var arry = [];
-    if(str == undefined || str == ""){
-        throw new Error("GeckoJS: no attribute");
-    }else{
-        if(value == undefined || value == ""){
-            if(this.length > 1){
-                for(var i = 0;i < this.length;i++){
-                    arry.push(this[i].getAttribute(str));
-                }
-                return arry;
-            }else{
-                return this.getAttribute(str);
-            }
-        }else{
-            if(str == "get"){
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        arry.push(this[i].getAttribute(value));
-                    }
-                    return arry;
-                }else{
-                    return this.getAttribute(value);
-                }
-        }else if(str == "has"){
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        arry.push(this[i].hasAttribute(value));
-                    }
-                    return arry;
-                }else{
-                    return this.hasAttribute(value);
-                }
-        }else if(str == "remove"){
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        arry.push(this[i].removeAttribute(value));
-                    }
-                }else{
-                    this.removeAttribute(value);
-                }    
-        }else{   
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        this[i].setAttribute(str, value);
-                    }
-                }else{
-                    this.setAttribute(str, value);
-                }
-        }
-        }
     }
-return this;
+    return this;
 }
-
-Object.prototype.hover = function(over, out){
-    if(this.length > 1){
-        for(var i = 0;i < this.length;i++){
-            this[i].addEventListener("mouseover", over);
-            this[i].addEventListener("mouseout", out);
-        }
-    }else{
-        this.addEventListener("mouseover", over);
-        this.addEventListener("mouseout", out);
-    }
-}
-
-Object.prototype.animates = function(css, time, delay){
-    var csT, tms;
-    if(delay == undefined){
-        tms = 0;
-    }else{
-        tms = delay;
-    }
-    if(time==undefined){
-        csT = `transition:all 0.15s linear;${css}`;
-    }else{
-        csT = `transition:all ${time/1000}s linear;${css}`;
-    }
+Object.prototype.animates=function(css, time, delay=0){
+    let csT;
+    if(!css){errors.err5();}
+    if(!time){csT = `transition:all 0.15s linear;${css}`;}
+    else{csT = `transition:all ${time/1000}s linear;${css}`;}
     if(this.length > 1){
         setTimeout(() => {
-            for(var i = 0;i < this.length;i++){
-                this[i].style.cssText =csT;
-            }
-        }, tms);
+            Array.from(this).map(e => e.style.cssText=csT);
+        }, delay);
     }else{
         setTimeout(() => {
             this.style.cssText =csT;
-        }, tms);
+        }, delay);
     }
-return this;
+    return this;
 }
-Object.prototype.html = function(str){
-    var arry = [];
-    if(str == undefined){
-        if(this.length > 1){
-            for(var i = 0;i < this.length;i++){
-                arry.push(this[i].innerHTML);
-            }
-            return arry;
-        }else{
-            return this.innerHTML;
-        }
+Object.prototype.html=function(str){
+    if(!str){
+        if(this.length > 1){return Array.from(this).map(e => e.innerHTML);}
+        else{return this.innerHTML;}
     }else{
-        if(this.length > 1){
-            for(var i = 0;i < this.length;i++){
-                this[i].innerHTML = str;
-            }
-        }else{
-            this.innerHTML = str;
-        }
+        if(this.length > 1){Array.from(this).map(e => e.innerHTML=str)}
+        else{this.innerHTML=str;}
     }
-return this;
+    return this;
 }
-Object.prototype.text = function(str){
-    var arry = [];
-    if(str == undefined){
-        if(this.length > 1){
-            for(var i = 0;i < this.length;i++){
-                arry.push(this[i].textContent);
-            }
-            return arry;
-        }else{
-            return this.textContent;
-        }
+Object.prototype.text=function(str){
+    if(!str){
+        if(this.length > 1){return Array.from(this).map(e => e.textContent);}
+        else{return this.textContent;}
     }else{
-        if(this.length > 1){
-            for(var i = 0;i < this.length;i++){
-                this[i].textContent = str;
-            }
-        }else{
-            this.textContent = str;
-        }
+        if(this.length > 1){Array.from(this).map(e => e.textContent=str)}
+        else{this.textContent=str;}
     }
-return this;
+    return this;
 }
-Object.prototype.class = function(str, value, rep){
-    var arry = [];
-    if(str == undefined || str == ""){
-        if(this.length > 1){
-            for(var i = 0;i < this.length;i++){
-                arry.push(this[i].className);
-            }
-            return arry;
-        }else{
-            return this.className; 
-        }
+Object.prototype.class=function(str, value, rep){
+    if(!str){
+        if(this.length > 1){return Array.from(this).map(e => e.className)}
+        else{return this.className;}
     }else{
         if(str == "remove"){
-            if(value == undefined || value == ""){
-                throw new Error("GeckoJS: no class value");
-            }else{
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        this[i].classList.remove(value);
-                    }
-                }else{
-                    this.classList.remove(value);
-                }
+            if(!value){errors.err9();}
+            else{
+                if(this.length > 1){Array.from(this).map(e => e.classList.remove(value))}
+                else{this.classList.remove(value);}
             } 
         }else if(str == "replace"){
-            if(value == undefined || value == ""){
-                throw new Error("GeckoJS: no class value");
-            }else{
-                if(rep == undefined || rep == ""){
-                    throw new Error("GeckoJS: no replace class value");
-                }else{
-                    if(this.length > 1){
-                        for(var i = 0;i < this.length;i++){
-                            this[i].classList.replace(value, rep);
-                        }
-                    }else{
-                        this.classList.replace(value, rep);
-                    }
+            if(!value){errors.err9();}
+            else{
+                if(!rep){errors.err10();}
+                else{
+                    if(this.length > 1){Array.from(this).map(e => e.classList.replace(value, rep));}
+                    else{this.classList.replace(value, rep);}
                 }
             } 
         }else if(str == "toggle"){
-            if(value == undefined || value == ""){
-                throw new Error("GeckoJS: no class value");
-            }else{
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        this[i].classList.toggle(value);
-                    }
-                }else{
-                    this.classList.toggle(value);
-                }
+            if(!value){errors.err9();}
+            else{
+                if(this.length > 1){Array.from(this).map(e => e.classList.toggle(value));}
+                else{this.classList.toggle(value);}
             } 
         }
         else if(str == "contains"){
-            if(value == undefined || value == ""){
-                throw new Error("GeckoJS: no class value");
-            }else{
-                if(this.length > 1){
-                    for(var i = 0;i < this.length;i++){
-                        arry.push(this[i].classList.contains(value));
-                    }
-                    return arry;
-                }else{
-                   return this.classList.contains(value);
-                }
+            if(!value){errors.err9();}
+            else{
+                if(this.length > 1){Array.from(this).map(e => e.classList.contains(value));}
+                else{this.classList.contains(value);}
             } 
         }
         else{
-            if(this.length > 1){
-                for(var i = 0;i<this.length;i++){
-                    this[i].classList.add(str);
-                }
-            }else{
-                this.classList.add(str);
-            }
+            if(this.length > 1){Array.from(this).map(e => e.classList.add(str));}
+            else{this.classList.add(str);}
         }
     }
-return this;
+    return this;
 }
-Object.prototype.find = function(str){
-var arry = [];
-var se = str.toLowerCase();
-var isId = false;
-if(se.charAt(0) == "#" || se.charAt(0) == "."){
-	se = se.substr(1, se.length);
-}
-
-	if(this.length > 1){
-		for(var i = 0;i<this.length;i++){
-for(var e = 0;e < this[i].childNodes.length;e++){
-		if(this[i].childNodes[e].localName == se || this[i].childNodes[e].id == se || this[i].childNodes[e].className == se){
-				arry.push(this[i].childNodes[0]);	
-			}
-
-}
-	
-		}
-	if(arry.length > 1){
-return arry;
-
-}else{
-	return arry[0];
-}
-	}else{
-	var ls = [];
-for(var e = 0;e < this.childNodes.length;e++){
-	if(this.childNodes[e].localName == se){
-		arry.push(this.childNodes[e]);
-	}
-}
-if(arry.length > 1){
-return arry;
-
-}else{
-	return arry[0];
-}
-
-	}
-}
-Object.prototype.toArray = function(){
-    var keys = Object.keys(this);
-    var vals = Object.values(this);
-    var arry = [];
-    if(keys.length > 0){
-        for(var i =0;i<keys.length;i++){
-            arry.push(keys[i]);
-            arry.push(vals[i]);
+Object.prototype.find=function(str){
+    if(!str){errors.err0();}
+    else{
+        let arry = [];
+        let se = str.toLowerCase();
+        if(se.charAt(0) == "#" || se.charAt(0) == "."){
+            se = se.substr(1, se.length);
         }
+        if(this.length > 1){
+            Array.from(this).map(s => {
+                s.childNodes.map(p =>{
+                    if(p.localName == se || p.id == se || p.className == se){arry.push(s.childNodes[0]);}
+                })
+            })
+            if(arry.length > 1){return arry;}
+            else{return arry[0];}
+        }else{
+            Array.from(this.childNodes).map(s => {
+                if(s.localName == se){arry.push(s);}
+            })
+            if(arry.length > 1){return arry;}
+            else{return arry[0];}
+        }
+    }
+}
+Object.prototype.toArray=function(){
+    const keys = Object.keys(this);
+    const vals = Object.values(this);
+    let arry = [];
+    if(keys.length){
+        keys.map((e, i) =>{
+            arry.push(e);
+            arry.push(vals[i]);
+        })
     }else{
         arry.push(keys[0]);
         arry.push(vals[0]);
     }
     return arry;
 }
-Object.prototype.objArray = function(){
+Object.prototype.objArray=function(){
     return Array.from(this);
 }
-Object.prototype.toString = function(){
+Object.prototype.toString=function(){
     var str = "";
     var keys = Object.keys(this);
     var vals = Object.values(this);
-    if(keys.length > 0){
-        for(var i =0;i<keys.length;i++){
-            str += `${keys[i]}:${vals[i]}, `;
-        }
+    if(keys.length){
+        keys.map((e, i) => str += `${e}:${vals[i]}, `);
         str = str.substr(0, str.length-2);
-    }else{
-        str = `${keys[0]}:${vals[0]}`;
-    }
+    }else{str = `${keys[0]}:${vals[0]}`;}
     return str;
 }
-
 /*------------------------------------------------*/
 /*----------------------Functions-------------------*/
 //Returns random number
