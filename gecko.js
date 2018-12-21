@@ -319,6 +319,9 @@ const exec = s => document.execCommand(s);
 const print = msg => console.log(msg);
 //Print message in console with return
 const printLn = msg => console.log(`${msg}\n`);
+//Print warning in console
+const warn = msg => console.warn(`${msg}\n`);
+
 
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
