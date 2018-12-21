@@ -314,15 +314,15 @@ const randomRange = (min, max) =>{
     }
 }
 //Exec command shorcut
-const exec = s => document.execCommand(s);
+const exec = (m,s,v) => document.execCommand(m,s,v);
 //Print message in console 
-const print = msg => console.log(msg);
+const print = (...msg) => console.log(...msg);
 //Print message in console with return
-const printLn = msg => console.log(`${msg}\n`);
+const printLn = (...msg) => console.log(...(msg.map(e => `${e}\n`)));
 //Print warning in console
-const warn = msg => console.warn(msg);
+const warn = (...msg) => console.warn(...msg);
 //Print error in console
-const error = msg => console.error(msg);
+const error = (...msg) => console.error(...msg);
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
