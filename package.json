@@ -1,6 +1,6 @@
 {
   "name": "geckojs",
-  "version": "1.2.32",
+  "version": "1.2.33",
   "description": "JS Library, with the most usually tools in your project.",
   "main": "gecko.js",
   "scripts": {
