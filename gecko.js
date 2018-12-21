@@ -317,6 +317,8 @@ const randomRange = (min, max) =>{
 const exec = s => document.execCommand(s);
 //Print message in console 
 const print = msg => console.log(msg);
+//Print message in console with return
+const printLn = msg => console.log(`${msg}\n`);
 
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
