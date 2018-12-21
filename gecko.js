@@ -5,7 +5,7 @@ console.info("Try our original Limiters and Ranges (LnR)®❗️");
 let dom = document;
 let bom = window;
 let gJS = Object;
-const exec = s => document.execCommand(s);
+
 let err = {
     msg(p){throw new Error(`GeckoJS Error: ${p} is undefined.`)}
 }
@@ -313,6 +313,11 @@ const randomRange = (min, max) =>{
         else{return (Math.floor(Math.random() * (max - min + 1)) + min);}
     }
 }
+//Exec command shorcut
+const exec = s => document.execCommand(s);
+//Print message in console 
+const print = msg => console.log(msg);
+
 /*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
