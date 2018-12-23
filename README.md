@@ -16,11 +16,13 @@
 
 ```
 npm i geckojs
-
-git clone https://github.com/BlobySoftware/GeckoJS.git
 ```
 
 --------------
+
+```
+git clone https://github.com/BlobySoftware/GeckoJS.git
+```
 
 <dl>
   <dt><h2>Latest Features:</h2></dt>
@@ -28,7 +30,6 @@ git clone https://github.com/BlobySoftware/GeckoJS.git
   <dd>* Select list of choised elements</dd>
   <dd>* New event outClick, check if you click outside of an element</dd>
 </dl>
-
 -------------
 
 <div align="center"><h1>Documentation (Summary of Updates)</h1></div>
