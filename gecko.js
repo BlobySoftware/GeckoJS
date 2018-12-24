@@ -381,19 +381,7 @@ String.prototype.toObject=function(str=false){
       return obj
     }else if(str){return Object.assign({}, l);}
 }
-//Returns the position of a last substring found
-String.prototype.lastIndexOf=function (str){
-    if(str===undefined){err.msg("Character")}
-    else{
-        const txt = this.toLowerCase();
-        const st = str.toLowerCase();
-        for(let i = 0;i < txt.length;i++){
-            if( txt.charAt(txt.length - i) == st ){
-                return this.length-i;
-            }
-        }
-    }
-}
+
 //Capitalize an element
 String.prototype.capitalize=function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
