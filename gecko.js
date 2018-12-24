@@ -209,6 +209,16 @@ Object.prototype.text=function(str){
     }
     return this;
 }
+Object.prototype.value=function(str){
+    if(str===undefined){
+        if(this.length > 1){return Array.from(this).map(e => e.value);}
+        else{return this.value;}
+    }else{
+        if(this.length > 1){Array.from(this).map(e => e.value=str)}
+        else{this.value=str;}
+    }
+    return this;
+}
 Object.prototype.class=function(str, value, rep){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => e.className)}
