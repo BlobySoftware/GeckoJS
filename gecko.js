@@ -612,3 +612,5 @@ Array.prototype.max=function(){
 Array.prototype.min=function(){
     return Math.min(...this.map(Number));
 }
+
+module.exports = g;
