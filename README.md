@@ -198,3 +198,8 @@ g("#myEl").event("click", () =>{
   g("#child").find("strong").css("background:red");
 });
 ```
+
+----------------------------
+
+# All rights reserved
+GeckoJs is developed by BlobySoftware®, GeckoJs use Minifit app to a better JavaScript code and compressions.
