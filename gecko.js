@@ -565,7 +565,7 @@ Array.prototype.toObject = function(str){
     }
 }
 //Converts array in String variable
-Array.prototype.toString = function(){
+Array.prototype.toStrings = function(){
     let tl =  this.map(String);
     return tl.join("");
 }
@@ -601,8 +601,8 @@ Array.prototype.operation=function(sign, e){
                 return this;
             }
         })
+      return r;
     }
-    return r;
 }
 //Get the max value of an Array(list of numbers)
 Array.prototype.max=function(){
