@@ -103,7 +103,7 @@ Object.prototype.ev=function(event, fn){
     }
     return this;
 }
-Object.prototype.cssm=function(str, value){
+Object.prototype.gcss=function(str, value){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => window.getComputedStyle(e));}
         else{return window.getComputedStyle(this);}
@@ -517,7 +517,7 @@ Number.prototype.toObject=function(){
     return Object.assign({},arry.map(Number));
 }
 /*------------------------------------------------*/
-/*----------------------Arrays-------------------*/
+/*----------------------Arrays-------------------
 //Converts array in Int variable
 Array.prototype.toInt=function(){
     return Math.max(this);
@@ -609,3 +609,4 @@ Array.prototype.max=function(){
 Array.prototype.min=function(){
     return Math.min(...this.map(Number));
 }
+*/
