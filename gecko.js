@@ -77,6 +77,7 @@ gJS.prototype.ajx=function(data, success){
     xml.onreadystatechange = success;
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
+
 Object.prototype.ev=function(event, fn){
     if(!event){err.msg("Event name");}
     else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
@@ -122,7 +123,7 @@ Object.prototype.gcss=function(str, value){
     }
     return this;
 }
-Object.prototype.offsets=function(){
+Object.prototype.ofst=function(){
     const rect = this.getBoundingClientRect(),
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -170,7 +171,7 @@ Object.prototype.hover=function(over, out){
     }
     return this;
 }
-Object.prototype.animates=function(css, time, delay=0){
+Object.prototype.anim=function(css, time, delay=0){
     let csT;
     if(!css){err.msg("Property")}
     if(time===undefined){csT = `transition:all 0.15s linear;${css}`;}
@@ -196,7 +197,7 @@ Object.prototype.htmls=function(str){
     }
     return this;
 }
-Object.prototype.texts=function(str){
+Object.prototype.txt=function(str){
     if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.textContent);}
         else{return this.textContent;}
@@ -216,7 +217,7 @@ Object.prototype.val=function(str){
     }
     return this;
 }
-Object.prototype.class=function(str, value, rep){
+Object.prototype.cl=function(str, value, rep){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => e.className)}
         else{return this.className;}
@@ -300,7 +301,7 @@ Object.prototype.toArray=function(){
 Object.prototype.objArray=function(){
     return Array.from(this);
 }
-Object.prototype.toStrings=function(){
+Object.prototype.toStr=function(){
     let str = "";
     let keys = Object.keys(this);
     let vals = Object.values(this);
@@ -330,7 +331,7 @@ const printLn = (...msg) => console.log(...(msg.map(e => `${e}\n`)));
 const warn = (...msg) => console.warn(...msg);
 //Print error in console
 const error = (...msg) => console.error(...msg);
-/*----------------------STRINGS-------------------*/
+/*----------------------STRINGS-------------------
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
     if(!rpt){err.msg("Number of repeats")}
@@ -487,7 +488,7 @@ String.prototype.replaceIndex=function(search, SearchIndex, replace){
 }
 /*------------------------------------------------*/
 
-/*----------------------Numbers-------------------*/
+/*----------------------Numbers-------------------
 //Return square root of a number default 2
 Number.prototype.root=function(e){
     if(e===undefined){return  Math.sqrt(this);}
