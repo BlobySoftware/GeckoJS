@@ -310,8 +310,8 @@ Object.prototype.toStrings=function(){
     }else{str = `${keys[0]}:${vals[0]}`;}
     return str;
 }
-/*------------------------------------------------*/
-/*----------------------Functions-------------------*/
+/*------------------------------------------------/*
+/*----------------------Functions-------------------
 //Returns random number
 const randomRange = (min, max) =>{
     if(min===undefined){err.msg("Min");}
@@ -321,7 +321,7 @@ const randomRange = (min, max) =>{
     }
 }
 //Exec command shorcut
-const exec = (m,s,v) => document.execCommand(m,s,v);
+const ex = (m,s,v) => document.execCommand(m,s,v);
 //Print message in console 
 const gprint = (...msg) => console.log(...msg);
 //Print message in console with return
