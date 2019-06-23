@@ -77,7 +77,7 @@ gJS.prototype.ajx=function(data, success){
     xml.onreadystatechange = success;
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
-Object.prototype.events=function(event, fn){
+Object.prototype.ev=function(event, fn){
     if(!event){err.msg("Event name");}
     else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
         document.addEventListener("click", e => {
