@@ -303,7 +303,7 @@ Object.prototype.toArray=function(){
 Object.prototype.objArray=function(){
     return Array.from(this);
 }
-Object.prototype.toString=function(){
+Object.prototype.toStrings=function(){
     let str = "";
     let keys = Object.keys(this);
     let vals = Object.values(this);
@@ -612,5 +612,3 @@ Array.prototype.max=function(){
 Array.prototype.min=function(){
     return Math.min(...this.map(Number));
 }
-
-module.exports = g;
