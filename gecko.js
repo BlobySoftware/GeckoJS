@@ -18,7 +18,7 @@ const g = (str, arry) =>{
             else{
                 if(typeof arry === "object"){
                     if(arry.length <= 1){
-                        const l = arry[0];
+                        let l = arry[0];
                         if(l >= el.length){l = el.length-1;}
                         if(l < 0){l = el.length + l;}
                         for(let i = 0;i<l+1;i++){
@@ -69,7 +69,7 @@ const g = (str, arry) =>{
     }
 }
 gJS.prototype.ajx=function(data, success){
-    const xml = new XMLHttpRequest;
+    const xml = new XMLHttpRequest();
     const msg = {
         dataMsg : Object.values(data.data),
         dataKeys : Object.keys(data.data),
@@ -80,7 +80,7 @@ gJS.prototype.ajx=function(data, success){
     xml.onreadystatechange = success;
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
-Object.prototype.event=function(event, fn){
+Object.prototype.events=function(event, fn){
     if(!event){err.msg("Event name");}
     else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
         document.addEventListener("click", e => {
@@ -106,7 +106,7 @@ Object.prototype.event=function(event, fn){
     }
     return this;
 }
-Object.prototype.css=function(str, value){
+Object.prototype.cssm=function(str, value){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => window.getComputedStyle(e));}
         else{return window.getComputedStyle(this);}
@@ -125,13 +125,13 @@ Object.prototype.css=function(str, value){
     }
     return this;
 }
-Object.prototype.offset=function(){
+Object.prototype.offsets=function(){
     const rect = this.getBoundingClientRect(),
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
 }
-Object.prototype.attr=function(str,value){
+Object.prototype.attrs=function(str,value){
     if(!str){err.msg("Attribute name")}
     else{
         if(value===undefined){
@@ -189,7 +189,7 @@ Object.prototype.animates=function(css, time, delay=0){
     }
     return this;
 }
-Object.prototype.html=function(str){
+Object.prototype.htmls=function(str){
     if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.innerHTML);}
         else{return this.innerHTML;}
@@ -199,7 +199,7 @@ Object.prototype.html=function(str){
     }
     return this;
 }
-Object.prototype.text=function(str){
+Object.prototype.texts=function(str){
     if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.textContent);}
         else{return this.textContent;}
@@ -260,7 +260,7 @@ Object.prototype.class=function(str, value, rep){
     }
     return this;
 }
-Object.prototype.find=function(str){
+Object.prototype.finds=function(str){
     if(!str){err.msg("Selector name")}
     else{
         let arry = [];
@@ -326,7 +326,7 @@ const randomRange = (min, max) =>{
 //Exec command shorcut
 const exec = (m,s,v) => document.execCommand(m,s,v);
 //Print message in console 
-const print = (...msg) => console.log(...msg);
+const gprint = (...msg) => console.log(...msg);
 //Print message in console with return
 const printLn = (...msg) => console.log(...(msg.map(e => `${e}\n`)));
 //Print warning in console
@@ -470,7 +470,7 @@ String.prototype.replaceIndex=function(search, SearchIndex, replace){
     else{
         if(SearchIndex===undefined){err.msg("SearchIndex")}
         else{
-            if(replace==undefined){err.msg("Replace character")}
+            if(replace===undefined){err.msg("Replace character")}
             else{
                 let count = -1;
                 const st = search.toLowerCase();
@@ -549,7 +549,7 @@ Array.prototype.combine=function(arry){
     if(!arry){err.msg("Array")}
     else{
         return [...this, ...arry]
-    };
+    }
 }
 //Array to Object
 Array.prototype.toObject = function(str){
@@ -573,7 +573,7 @@ Array.prototype.toStrings = function(){
 Array.prototype.randomize=function(){
     this.map(e => {
         let current = e;
-        let rd = (Math.floor(Math.random() * (this.length)));
+        let td = (Math.floor(Math.random() * (this.length)));
         let prev = this[td];
         e = prev;
         this[td] = current;
