@@ -312,7 +312,7 @@ Object.prototype.toStr=function(){
     return str;
 }
 /*------------------------------------------------/*
-/*----------------------Functions-------------------
+/*----------------------Functions-------------------*/
 //Returns random number
 const randomRange = (min, max) =>{
     if(min===undefined){err.msg("Min");}
@@ -331,7 +331,7 @@ const printLn = (...msg) => console.log(...(msg.map(e => `${e}\n`)));
 const warn = (...msg) => console.warn(...msg);
 //Print error in console
 const error = (...msg) => console.error(...msg);
-/*----------------------STRINGS-------------------
+/*----------------------STRINGS-------------------*/
 //Returns bolean of how much substrings are in a string
 String.prototype.searchRepeat=function(rpt, str){
     if(!rpt){err.msg("Number of repeats")}
@@ -488,7 +488,7 @@ String.prototype.replaceIndex=function(search, SearchIndex, replace){
 }
 /*------------------------------------------------*/
 
-/*----------------------Numbers-------------------
+/*----------------------Numbers-------------------*/
 //Return square root of a number default 2
 Number.prototype.root=function(e){
     if(e===undefined){return  Math.sqrt(this);}
@@ -518,7 +518,7 @@ Number.prototype.toObject=function(){
     return Object.assign({},arry.map(Number));
 }
 /*------------------------------------------------*/
-/*----------------------Arrays-------------------
+/*----------------------Arrays-------------------*/
 //Converts array in Int variable
 Array.prototype.toInt=function(){
     return Math.max(this);
@@ -610,4 +610,3 @@ Array.prototype.max=function(){
 Array.prototype.min=function(){
     return Math.min(...this.map(Number));
 }
-*/
