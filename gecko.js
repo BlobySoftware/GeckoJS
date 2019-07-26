@@ -129,7 +129,7 @@ Object.prototype.offset=function(){
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
 }
-Object.prototype.attrs=function(str,value){
+Object.prototype.attr=function(str,value){
     if(!str){err.msg("Attribute name")}
     else{
         if(value===undefined){
