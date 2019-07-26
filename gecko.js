@@ -78,7 +78,7 @@ gJS.prototype.ajx=function(data, success){
     xml.send(msg.complete.substr(0, msg.complete.length - 1));
 }
 
-Object.prototype.ev=function(event, fn){
+Object.prototype.event=function(event, fn){
     if(!event){err.msg("Event name");}
     else if(event.match(/^(outClick|ouclick|oClick|oclick)$/)){
         document.addEventListener("click", e => {
@@ -104,7 +104,7 @@ Object.prototype.ev=function(event, fn){
     }
     return this;
 }
-Object.prototype.gcss=function(str, value){
+Object.prototype.css=function(str, value){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => window.getComputedStyle(e));}
         else{return window.getComputedStyle(this);}
@@ -123,7 +123,7 @@ Object.prototype.gcss=function(str, value){
     }
     return this;
 }
-Object.prototype.ofst=function(){
+Object.prototype.offset=function(){
     const rect = this.getBoundingClientRect(),
     scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -171,7 +171,7 @@ Object.prototype.hover=function(over, out){
     }
     return this;
 }
-Object.prototype.anim=function(css, time, delay=0){
+Object.prototype.animates=function(css, time, delay=0){
     let csT;
     if(!css){err.msg("Property")}
     if(time===undefined){csT = `transition:all 0.15s linear;${css}`;}
@@ -187,7 +187,7 @@ Object.prototype.anim=function(css, time, delay=0){
     }
     return this;
 }
-Object.prototype.htmls=function(str){
+Object.prototype.html=function(str){
     if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.innerHTML);}
         else{return this.innerHTML;}
@@ -197,7 +197,7 @@ Object.prototype.htmls=function(str){
     }
     return this;
 }
-Object.prototype.txt=function(str){
+Object.prototype.text=function(str){
     if(str===undefined){
         if(this.length > 1){return Array.from(this).map(e => e.textContent);}
         else{return this.textContent;}
@@ -217,7 +217,7 @@ Object.prototype.val=function(str){
     }
     return this;
 }
-Object.prototype.cl=function(str, value, rep){
+Object.prototype.class=function(str, value, rep){
     if(!str){
         if(this.length > 1){return Array.from(this).map(e => e.className)}
         else{return this.className;}
@@ -258,7 +258,7 @@ Object.prototype.cl=function(str, value, rep){
     }
     return this;
 }
-Object.prototype.finds=function(str){
+Object.prototype.find=function(str){
     if(!str){err.msg("Selector name")}
     else{
         let arry = [];
@@ -301,7 +301,7 @@ Object.prototype.toArray=function(){
 Object.prototype.objArray=function(){
     return Array.from(this);
 }
-Object.prototype.toStr=function(){
+Object.prototype.toString=function(){
     let str = "";
     let keys = Object.keys(this);
     let vals = Object.values(this);
@@ -563,7 +563,7 @@ Array.prototype.toObject = function(str){
     }
 }
 //Converts array in String variable
-Array.prototype.toStrings = function(){
+Array.prototype.toString= function(){
     let tl =  this.map(String);
     return tl.join("");
 }
