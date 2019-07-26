@@ -6,7 +6,7 @@ let gJS = Object;
 let err = {
     msg(p){throw new Error(`GeckoJS Error: ${p} is undefined.`)}
 }
-const _g = (str, arry) =>{
+const g = (str, arry) =>{
     const el = document.querySelectorAll(str);
     let a = [];
     if(typeof str !== "object"){
