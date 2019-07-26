@@ -2,6 +2,8 @@
 console.warn(document.title , "is Powered by GeckoJS© 😉\nVisit: https://blobysoftware.github.io/GeckoJsPage/");
 console.info("Try our original Limiters and Ranges (LnR)®❗️");
 
+const dom = document;
+const bom = window;
 let gJS = Object;
 let err = {
     msg(p){throw new Error(`GeckoJS Error: ${p} is undefined.`)}
